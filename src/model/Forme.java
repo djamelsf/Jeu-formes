@@ -1,0 +1,17 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package model;
+
+/**
+ *
+ * @author mac
+ */
+public interface Forme {
+    double calculSurface();
+    boolean collision(ConteneurFormes conteneurFormes);
+    void deplacement(Forme forme);
+    void translation(Forme forme);
+}
