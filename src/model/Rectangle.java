@@ -103,4 +103,30 @@ public class Rectangle extends Point implements Forme {
         }
     }
 
+    @Override
+    public boolean collisionPoint(java.awt.Point point) {
+        // is the point inside the rectangle's bounds?
+        if (point.getX() >= this.getX()
+                && // right of the left edge AND
+                point.getX() <= this.getX() + this.largeur
+                && // left of the right edge AND
+                point.getY() >= this.getY()
+                && // below the top AND
+                point.getY() <= this.getY() + this.hauteur) {   // above the bottom
+            return true;
+        }
+        return false;
+    }
+    
+    @Override
+    public boolean equals(Object obj) {
+        if(obj==null) return false;
+        if(obj instanceof Rectangle){
+            Rectangle rectangle=(Rectangle)obj;
+            return (this.getX()==rectangle.getX() && this.getY()==rectangle.getY() && this.largeur==rectangle.largeur
+                    && this.hauteur==rectangle.hauteur);
+        }
+        return false;
+    }
+
 }

@@ -90,4 +90,32 @@ public class Cercle extends Point implements Forme {
         }
     }
 
+    @Override
+    public boolean collisionPoint(java.awt.Point point) {
+        // get distance between the point and circle's center
+        // using the Pythagorean Theorem
+        double distX = point.getX() - this.getX();
+        double distY = point.getY() - this.getY();
+        double distance = Math.sqrt((distX * distX) + (distY * distY));
+
+        // if the distance is less than the circle's
+        // radius the point is inside!
+        if (distance <= this.rayon) {
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj==null) return false;
+        if(obj instanceof Cercle){
+            Cercle cercle=(Cercle)obj;
+            return (cercle.getRayon()==this.rayon && cercle.getX()==this.getX() && cercle.getY()==this.getY());
+        }
+        return false;
+    }
+    
+    
+
 }

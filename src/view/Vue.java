@@ -6,6 +6,7 @@
 package view;
 
 import java.awt.Graphics2D;
+import model.Forme;
 
 /**
  *
@@ -13,4 +14,5 @@ import java.awt.Graphics2D;
  */
 public interface Vue {
     void paint(Graphics2D graphics2D);
+    Forme getForme();
 }

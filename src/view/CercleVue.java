@@ -10,6 +10,7 @@ import java.awt.Graphics2D;
 import java.awt.Shape;
 import java.awt.geom.Ellipse2D;
 import model.Cercle;
+import model.Forme;
 
 /**
  *
@@ -27,6 +28,11 @@ public class CercleVue implements Vue{
         Shape shape= new Ellipse2D.Double(cercle.getX()-cercle.getRayon(), cercle.getY()-cercle.getRayon(), cercle.getRayon()*2, cercle.getRayon()*2);
         graphics2D.setColor(Color.red);
         graphics2D.draw(shape);
+    }
+
+    @Override
+    public Forme getForme() {
+        return this.cercle;
     }
     
 }

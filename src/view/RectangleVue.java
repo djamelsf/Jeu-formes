@@ -9,6 +9,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Shape;
 import java.awt.geom.Rectangle2D;
+import model.Forme;
 import model.Rectangle;
 
 /**
@@ -28,6 +29,11 @@ public class RectangleVue implements Vue{
         Shape shape = new Rectangle2D.Double(rectangle.getX(), rectangle.getY(), rectangle.getLargeur(), rectangle.getHauteur());
         graphics2D.setColor(Color.BLUE);
         graphics2D.draw(shape);
+    }
+
+    @Override
+    public Forme getForme() {
+        return this.rectangle;
     }
 
 }

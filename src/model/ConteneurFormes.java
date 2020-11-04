@@ -23,7 +23,7 @@ public class ConteneurFormes {
         this.formes.add(forme);
     }
 
-    void remove(Forme forme) {
+    public void remove(Forme forme) {
         this.formes.remove(forme);
     }
 

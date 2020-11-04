@@ -14,4 +14,8 @@ public interface Forme {
     boolean collision(ConteneurFormes conteneurFormes);
     void deplacement(Forme forme);
     void translation(Forme forme);
+    boolean collisionPoint(java.awt.Point point);
+    @Override
+    public boolean equals(Object obj);
+    
 }

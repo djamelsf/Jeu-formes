@@ -8,6 +8,7 @@ package view;
 import State.EtatCreerCercle;
 import State.EtatCreerRectangle;
 import State.EtatForme;
+import State.EtatSuppressionForme;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
@@ -50,6 +51,14 @@ public class VueConteneur extends JPanel implements ConteneurListener, EcouteurF
         }
     }
 
+    public ConteneurFormes getConteneurFormes() {
+        return conteneurFormes;
+    }
+
+    public void setConteneurFormes(ConteneurFormes conteneurFormes) {
+        this.conteneurFormes = conteneurFormes;
+    }
+
     public void addVue(Vue vue) {
         vues.add(vue);
     }
@@ -58,14 +67,18 @@ public class VueConteneur extends JPanel implements ConteneurListener, EcouteurF
         vues.remove(i);
     }
 
+    public void removeVue(Vue vue) {
+        vues.remove(vue);
+    }
+
     @Override
     public void formeAjoutee(Forme forme) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.conteneurFormes.add(forme);
     }
 
     @Override
     public void formeRetiree(Forme forme) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.conteneurFormes.remove(forme);
     }
 
     @Override
@@ -85,7 +98,8 @@ public class VueConteneur extends JPanel implements ConteneurListener, EcouteurF
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        //
+        etatForme = new EtatSuppressionForme(this, conteneurFormes);
+        etatForme.mouseClicked(e);
     }
 
     @Override

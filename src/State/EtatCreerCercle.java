@@ -58,4 +58,9 @@ public class EtatCreerCercle implements EtatForme {
         }
     }
 
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        //VIDE
+    }
+
 }

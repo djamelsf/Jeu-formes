@@ -17,6 +17,7 @@ public interface EtatForme {
     void mousePressed(MouseEvent e);
     void mouseDragged(MouseEvent e);
     void mouseReleased(MouseEvent e);
+    void mouseClicked(MouseEvent e);
     
 
 }
