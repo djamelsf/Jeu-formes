@@ -5,6 +5,7 @@
  */
 package view;
 
+import State.EtatCreerCercle;
 import State.EtatCreerRectangle;
 import State.EtatForme;
 import java.awt.Graphics;
@@ -32,6 +33,7 @@ public class VueConteneur extends JPanel implements ConteneurListener, EcouteurF
     private Rectangle rectangle;
     private Cercle cercle;
     private EtatForme etatForme;
+    public static int ETAT = 1; // Bouton de création rectangle
 
     public VueConteneur() {
         this.vues = new ArrayList<>();
@@ -88,8 +90,19 @@ public class VueConteneur extends JPanel implements ConteneurListener, EcouteurF
 
     @Override
     public void mousePressed(MouseEvent e) {
-        etatForme=new EtatCreerRectangle(this, conteneurFormes);
-        etatForme.mousePressed(e);
+        switch (ETAT) {
+            case 0:
+                etatForme = new EtatCreerRectangle(this, conteneurFormes);
+                etatForme.mousePressed(e);
+                break;
+            case 1:
+                etatForme = new EtatCreerCercle(this, conteneurFormes);
+                etatForme.mousePressed(e);
+                break;
+            default:
+            // code block
+        }
+
     }
 
     @Override
@@ -114,6 +127,5 @@ public class VueConteneur extends JPanel implements ConteneurListener, EcouteurF
     public void setVues(ArrayList<Vue> vues) {
         this.vues = vues;
     }
-        
 
 }
