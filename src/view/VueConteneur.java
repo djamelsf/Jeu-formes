@@ -5,6 +5,8 @@
  */
 package view;
 
+import State.EtatCreerRectangle;
+import State.EtatForme;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
@@ -29,9 +31,11 @@ public class VueConteneur extends JPanel implements ConteneurListener, EcouteurF
     private ConteneurFormes conteneurFormes;
     private Rectangle rectangle;
     private Cercle cercle;
+    private EtatForme etatForme;
 
     public VueConteneur() {
         this.vues = new ArrayList<>();
+        this.conteneurFormes = new ConteneurFormes();
         addMouseMotionListener(this);
         addMouseListener(this);
     }
@@ -44,12 +48,12 @@ public class VueConteneur extends JPanel implements ConteneurListener, EcouteurF
         }
     }
 
-    void addVue(Vue vue) {
+    public void addVue(Vue vue) {
         vues.add(vue);
     }
 
-    void removeVue(Vue vue) {
-        vues.remove(vue);
+    public void removeVue(int i) {
+        vues.remove(i);
     }
 
     @Override
@@ -63,43 +67,53 @@ public class VueConteneur extends JPanel implements ConteneurListener, EcouteurF
     }
 
     @Override
-    public void modeleMisAjour(Object source) {
+    public void modeleMisAjour() {
         repaint();
     }
 
     @Override
     public void mouseDragged(MouseEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        etatForme.mouseDragged(e);
     }
 
     @Override
     public void mouseMoved(MouseEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        etatForme=new EtatCreerRectangle(this, conteneurFormes);
+        etatForme.mousePressed(e);
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        etatForme.mouseReleased(e);
     }
 
     @Override
     public void mouseEntered(MouseEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //
     }
+
+    public ArrayList<Vue> getVues() {
+        return vues;
+    }
+
+    public void setVues(ArrayList<Vue> vues) {
+        this.vues = vues;
+    }
+        
 
 }

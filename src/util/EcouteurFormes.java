@@ -10,5 +10,5 @@ package util;
  * @author mac
  */
 public interface EcouteurFormes {
-    void modeleMisAjour(Object source);
+    void modeleMisAjour();
 }

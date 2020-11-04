@@ -19,7 +19,7 @@ public class ConteneurFormes {
         this.formes = new ArrayList<>();
     }
 
-    void add(Forme forme) {
+    public void add(Forme forme) {
         this.formes.add(forme);
     }
 

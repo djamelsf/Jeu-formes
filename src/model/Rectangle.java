@@ -82,6 +82,7 @@ public class Rectangle extends Point implements Forme {
 
             }
         }
+        System.out.println("11111");
         return false;
     }
 
