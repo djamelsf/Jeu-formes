@@ -29,8 +29,6 @@ public class EtatCreerCercle implements EtatForme {
         this.vueConteneur = vueConteneur;
         this.conteneurFormes = conteneurFormes;
     }
-    
-    
 
     @Override
     public void mousePressed(MouseEvent e) {
