@@ -74,12 +74,9 @@ public class Cercle extends Point implements Forme {
     }
 
     @Override
-    public void deplacement(Forme forme) {
-        if (forme instanceof Cercle) {
-            Cercle cercle = (Cercle) forme;
-            this.setX(cercle.getX());
-            this.setY(cercle.getY());
-        }
+    public void deplacement(Point point) {
+        this.setX(point.getX());
+        this.setY(point.getY());
     }
 
     @Override
@@ -115,6 +112,8 @@ public class Cercle extends Point implements Forme {
         }
         return false;
     }
+
+    
     
     
 

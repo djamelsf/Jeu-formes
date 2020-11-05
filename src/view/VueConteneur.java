@@ -7,6 +7,7 @@ package view;
 
 import State.EtatCreerCercle;
 import State.EtatCreerRectangle;
+import State.EtatDeplacementForme;
 import State.EtatForme;
 import State.EtatSuppressionForme;
 import java.awt.Graphics;
@@ -111,6 +112,10 @@ public class VueConteneur extends JPanel implements ConteneurListener, EcouteurF
                 break;
             case 1:
                 etatForme = new EtatCreerCercle(this, conteneurFormes);
+                etatForme.mousePressed(e);
+                break;
+            case 2:
+                etatForme = new EtatDeplacementForme(this, conteneurFormes);
                 etatForme.mousePressed(e);
                 break;
             default:

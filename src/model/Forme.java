@@ -12,7 +12,7 @@ package model;
 public interface Forme {
     double calculSurface();
     boolean collision(ConteneurFormes conteneurFormes);
-    void deplacement(Forme forme);
+    void deplacement(Point point);
     void translation(Forme forme);
     boolean collisionPoint(java.awt.Point point);
     @Override

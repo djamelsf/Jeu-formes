@@ -86,12 +86,9 @@ public class Rectangle extends Point implements Forme {
     }
 
     @Override
-    public void deplacement(Forme forme) {
-        if (forme instanceof Rectangle) {
-            Rectangle rectangle = (Rectangle) forme;
-            this.setX(rectangle.getX());
-            this.setY(rectangle.getY());
-        }
+    public void deplacement(Point point) {
+        this.setX(point.getX());
+        this.setY(point.getY());
     }
 
     @Override
@@ -117,16 +114,21 @@ public class Rectangle extends Point implements Forme {
         }
         return false;
     }
-    
+
     @Override
     public boolean equals(Object obj) {
-        if(obj==null) return false;
-        if(obj instanceof Rectangle){
-            Rectangle rectangle=(Rectangle)obj;
-            return (this.getX()==rectangle.getX() && this.getY()==rectangle.getY() && this.largeur==rectangle.largeur
-                    && this.hauteur==rectangle.hauteur);
+        if (obj == null) {
+            return false;
+        }
+        if (obj instanceof Rectangle) {
+            Rectangle rectangle = (Rectangle) obj;
+            return (this.getX() == rectangle.getX() && this.getY() == rectangle.getY() && this.largeur == rectangle.largeur
+                    && this.hauteur == rectangle.hauteur);
         }
         return false;
     }
+    
+
+  
 
 }
