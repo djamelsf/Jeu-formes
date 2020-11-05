@@ -7,6 +7,7 @@ package State;
 
 import java.awt.Point;
 import java.awt.event.MouseEvent;
+import javax.swing.JOptionPane;
 import model.ConteneurFormes;
 import model.Forme;
 import model.Rectangle;
@@ -26,6 +27,7 @@ public class EtatDeplacementForme implements EtatForme {
     ConteneurFormes conteneurFormes;
     Point depart;
     Point fin;
+    model.Point intialPoint;
 
     public EtatDeplacementForme(VueConteneur vueConteneur, ConteneurFormes conteneurFormes) {
         this.vueConteneur = vueConteneur;
@@ -43,6 +45,10 @@ public class EtatDeplacementForme implements EtatForme {
                         this.f = forme;
                         this.vue = vue;
                         this.conteneurFormes.getFormes().remove(f);
+                        //
+                        this.intialPoint=f.getPointDepart();
+                        System.out.println("1 :"+this.intialPoint.getX()+":->"+intialPoint.getY());
+                        //
                         break;
                     }
                 }
@@ -53,15 +59,31 @@ public class EtatDeplacementForme implements EtatForme {
 
     @Override
     public void mouseDragged(MouseEvent e) {
-        model.Point p = new model.Point(e.getPoint().getX(), e.getPoint().getY());
-        this.f.deplacement(p);
-        this.vueConteneur.modeleMisAjour();
+        if (this.f != null) {
+            model.Point p = new model.Point(e.getPoint().getX(), e.getPoint().getY());
+            this.f.deplacement(p);
+            this.vueConteneur.modeleMisAjour();
+        }
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        this.f.collision(conteneurFormes);
-        this.conteneurFormes.add(f);
+        if (this.f != null) {
+            //this.f.collision(conteneurFormes);
+            //
+            if(this.f.collision(conteneurFormes)){
+                JOptionPane.showMessageDialog(vueConteneur,"Collision detecté");
+                //this.vueConteneur.removeVue(vue);
+                this.f.deplacement(intialPoint);
+                System.out.println("2 :"+this.f.getPointDepart().getX()+":->"+f.getPointDepart().getY());
+                this.conteneurFormes.add(f);
+                this.vueConteneur.modeleMisAjour();
+            }else{
+                this.conteneurFormes.add(f);
+            }
+            //
+            //this.conteneurFormes.add(f);
+        }
     }
 
     @Override

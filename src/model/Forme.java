@@ -17,5 +17,6 @@ public interface Forme {
     boolean collisionPoint(java.awt.Point point);
     @Override
     public boolean equals(Object obj);
+    Point getPointDepart();
     
 }

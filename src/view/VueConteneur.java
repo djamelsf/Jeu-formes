@@ -34,7 +34,7 @@ public class VueConteneur extends JPanel implements ConteneurListener, EcouteurF
     private ConteneurFormes conteneurFormes;
     private Rectangle rectangle;
     private Cercle cercle;
-    private EtatForme etatForme;
+    public static EtatForme etatForme;
     public static int ETAT = 1; // Bouton de création rectangle
 
     public VueConteneur() {
@@ -49,6 +49,24 @@ public class VueConteneur extends JPanel implements ConteneurListener, EcouteurF
         Graphics2D gr = (Graphics2D) g;
         for (Vue vue : vues) {
             vue.paint(gr);
+        }
+    }
+
+    public void changeEtat(int i) {
+        switch (i) {
+            case 0:
+                etatForme = new EtatCreerRectangle(this, conteneurFormes);
+                break;
+            case 1:
+                etatForme= new EtatCreerCercle(this, conteneurFormes);
+                break;
+            case 2:
+                etatForme= new EtatDeplacementForme(this, conteneurFormes);
+                break;
+            case 3:
+                etatForme=new EtatSuppressionForme(this, conteneurFormes);
+                break;
+            default:
         }
     }
 
@@ -107,15 +125,18 @@ public class VueConteneur extends JPanel implements ConteneurListener, EcouteurF
     public void mousePressed(MouseEvent e) {
         switch (ETAT) {
             case 0:
-                etatForme = new EtatCreerRectangle(this, conteneurFormes);
+                //etatForme = new EtatCreerRectangle(this, conteneurFormes);
                 etatForme.mousePressed(e);
                 break;
             case 1:
-                etatForme = new EtatCreerCercle(this, conteneurFormes);
+                //etatForme = new EtatCreerCercle(this, conteneurFormes);
                 etatForme.mousePressed(e);
                 break;
             case 2:
-                etatForme = new EtatDeplacementForme(this, conteneurFormes);
+                //etatForme = new EtatDeplacementForme(this, conteneurFormes);
+                etatForme.mousePressed(e);
+                break;
+            case 3:
                 etatForme.mousePressed(e);
                 break;
             default:

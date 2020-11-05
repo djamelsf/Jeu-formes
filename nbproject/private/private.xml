@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/Users/mac/NetBeansProjects/TP_JeuForm/src/view/Vue.java</file>
+            <file>file:/Users/mac/NetBeansProjects/TP_JeuForm/src/view/VueConteneur.java</file>
+            <file>file:/Users/mac/NetBeansProjects/TP_JeuForm/src/view/RectangleVue.java</file>
+            <file>file:/Users/mac/NetBeansProjects/TP_JeuForm/src/model/Forme.java</file>
+            <file>file:/Users/mac/NetBeansProjects/TP_JeuForm/src/util/EcouteurFormes.java</file>
+            <file>file:/Users/mac/NetBeansProjects/TP_JeuForm/src/util/ConteneurListener.java</file>
+            <file>file:/Users/mac/NetBeansProjects/TP_JeuForm/src/Test/Main.java</file>
+            <file>file:/Users/mac/NetBeansProjects/TP_JeuForm/src/model/Cercle.java</file>
+            <file>file:/Users/mac/NetBeansProjects/TP_JeuForm/src/model/ConteneurFormes.java</file>
+            <file>file:/Users/mac/NetBeansProjects/TP_JeuForm/src/model/Rectangle.java</file>
+            <file>file:/Users/mac/NetBeansProjects/TP_JeuForm/src/State/EtatCreerCercle.java</file>
+            <file>file:/Users/mac/NetBeansProjects/TP_JeuForm/src/State/EtatSuppressionForme.java</file>
+            <file>file:/Users/mac/NetBeansProjects/TP_JeuForm/src/State/EtatDeplacementForme.java</file>
+            <file>file:/Users/mac/NetBeansProjects/TP_JeuForm/src/State/EtatCreerRectangle.java</file>
+            <file>file:/Users/mac/NetBeansProjects/TP_JeuForm/src/view/CercleVue.java</file>
+            <file>file:/Users/mac/NetBeansProjects/TP_JeuForm/src/model/Point.java</file>
+            <file>file:/Users/mac/NetBeansProjects/TP_JeuForm/src/State/EtatForme.java</file>
+        </group>
+    </open-files>
+</project-private>
