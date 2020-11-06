@@ -36,7 +36,10 @@ public class EtatDeplacementForme implements EtatForme {
 
     @Override
     public void mousePressed(MouseEvent e) {
+        this.f=null;
+        System.out.println("pressed");
         for (Forme forme : this.conteneurFormes.getFormes()) {
+            System.out.println("presse2");
             if (forme.collisionPoint(e.getPoint())) {
                 System.out.println( "xxxxxxx");
                 for (Vue vue : vueConteneur.getVues()) {

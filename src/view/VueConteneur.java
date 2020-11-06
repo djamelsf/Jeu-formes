@@ -118,7 +118,7 @@ public class VueConteneur extends JPanel implements ConteneurListener, EcouteurF
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        etatForme = new EtatSuppressionForme(this, conteneurFormes);
+        //etatForme = new EtatSuppressionForme(this, conteneurFormes);
         etatForme.mouseClicked(e);
     }
 
