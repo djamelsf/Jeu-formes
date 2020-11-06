@@ -46,6 +46,7 @@ public class VueConteneur extends JPanel implements ConteneurListener, EcouteurF
 
     @Override
     protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
         Graphics2D gr = (Graphics2D) g;
         for (Vue vue : vues) {
             vue.paint(gr);

@@ -127,13 +127,10 @@ public class Rectangle extends Point implements Forme {
         }
         return false;
     }
-    
+
     @Override
     public Point getPointDepart() {
         return new Point(this.getX(), this.getY());
     }
-    
-
-  
 
 }

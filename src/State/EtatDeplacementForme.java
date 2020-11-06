@@ -38,7 +38,7 @@ public class EtatDeplacementForme implements EtatForme {
     public void mousePressed(MouseEvent e) {
         for (Forme forme : this.conteneurFormes.getFormes()) {
             if (forme.collisionPoint(e.getPoint())) {
-
+                System.out.println( "xxxxxxx");
                 for (Vue vue : vueConteneur.getVues()) {
 
                     if (vue.getForme().equals(forme)) {
@@ -59,6 +59,7 @@ public class EtatDeplacementForme implements EtatForme {
 
     @Override
     public void mouseDragged(MouseEvent e) {
+        
         if (this.f != null) {
             model.Point p = new model.Point(e.getPoint().getX(), e.getPoint().getY());
             this.f.deplacement(p);
@@ -69,6 +70,7 @@ public class EtatDeplacementForme implements EtatForme {
     @Override
     public void mouseReleased(MouseEvent e) {
         if (this.f != null) {
+            System.out.println("PPPPPPPPPPP");
             //this.f.collision(conteneurFormes);
             //
             if(this.f.collision(conteneurFormes)){
