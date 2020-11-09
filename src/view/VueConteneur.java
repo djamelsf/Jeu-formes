@@ -52,6 +52,10 @@ public class VueConteneur extends JPanel implements ConteneurListener, EcouteurF
             vue.paint(gr);
         }
     }
+    
+    public void generateRandomForme(){
+        double i=Math.random()*10;
+    }
 
     public void changeEtat(int i) {
         switch (i) {
