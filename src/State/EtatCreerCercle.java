@@ -51,6 +51,8 @@ public class EtatCreerCercle implements EtatForme {
     @Override
     public void mouseReleased(MouseEvent e) {
         if (dessinEnCours) {
+            //this.vueConteneur.removeVue(this.vueConteneur.getVues().size()-1);
+            this.vueConteneur.modeleMisAjour();
             this.fin = e.getPoint();
             dessinEnCours = false;
             cercle.collision(this.conteneurFormes);
