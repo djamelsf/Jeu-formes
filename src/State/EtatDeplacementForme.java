@@ -5,6 +5,8 @@
  */
 package State;
 
+import Command.Action;
+import Command.DeplacementFormeAction;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
 import javax.swing.JOptionPane;
@@ -28,6 +30,7 @@ public class EtatDeplacementForme implements EtatForme {
     Point depart;
     Point fin;
     model.Point intialPoint;
+    model.Point finalPoint;
 
     public EtatDeplacementForme(VueConteneur vueConteneur, ConteneurFormes conteneurFormes) {
         this.vueConteneur = vueConteneur;
@@ -64,8 +67,8 @@ public class EtatDeplacementForme implements EtatForme {
     public void mouseDragged(MouseEvent e) {
         
         if (this.f != null) {
-            model.Point p = new model.Point(e.getPoint().getX(), e.getPoint().getY());
-            this.f.deplacement(p);
+            finalPoint = new model.Point(e.getPoint().getX(), e.getPoint().getY());
+            this.f.deplacement(finalPoint);
             this.vueConteneur.modeleMisAjour();
         }
     }
@@ -84,7 +87,9 @@ public class EtatDeplacementForme implements EtatForme {
                 this.conteneurFormes.add(f);
                 this.vueConteneur.modeleMisAjour();
             }else{
-                this.conteneurFormes.add(f);
+            //Action action=new DeplacementFormeAction(f, intialPoint, finalPoint, vueConteneur);
+            //this.vueConteneur.getCommandHandler().handle(action);
+                //this.conteneurFormes.add(f);
             }
             //
             //this.conteneurFormes.add(f);

@@ -5,6 +5,8 @@
  */
 package State;
 
+import Command.Action;
+import Command.AjoutFormeAction;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
 import model.ConteneurFormes;
@@ -20,6 +22,7 @@ import view.VueConteneur;
 public class EtatCreerRectangle implements EtatForme {
 
     Rectangle rectangle;
+    RectangleVue rectangleVue;
     boolean dessinEnCours = false;
     VueConteneur vueConteneur;
     ConteneurFormes conteneurFormes;
@@ -40,7 +43,7 @@ public class EtatCreerRectangle implements EtatForme {
     public void mouseDragged(MouseEvent e) {
         model.Point p = new model.Point(depart.getX(), depart.getY());
         rectangle = new Rectangle(p, e.getX() - depart.getX(), e.getY() - depart.getY());
-        RectangleVue rectangleVue = new RectangleVue(rectangle);
+        this.rectangleVue = new RectangleVue(rectangle);
         if (dessinEnCours) {
             this.vueConteneur.removeVue(vueConteneur.getVues().size() - 1);
         }
@@ -52,10 +55,13 @@ public class EtatCreerRectangle implements EtatForme {
     @Override
     public void mouseReleased(MouseEvent e) {
         if (dessinEnCours) {
+            this.vueConteneur.removeVue(this.vueConteneur.getVues().size()-1);
             this.fin = e.getPoint();
             dessinEnCours = false;
             rectangle.collision(this.conteneurFormes);
-            conteneurFormes.add(rectangle);
+            Action action=new AjoutFormeAction(rectangle, rectangleVue, vueConteneur);
+            this.vueConteneur.getCommandHandler().handle(action);
+            //conteneurFormes.add(rectangle);
         }
     }
 

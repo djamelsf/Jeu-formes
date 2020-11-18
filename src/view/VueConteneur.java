@@ -5,6 +5,7 @@
  */
 package view;
 
+import Command.CommandHandler;
 import State.EtatCreerCercle;
 import State.EtatCreerRectangle;
 import State.EtatDeplacementForme;
@@ -36,12 +37,14 @@ public class VueConteneur extends JPanel implements ConteneurListener, EcouteurF
     private Cercle cercle;
     public static EtatForme etatForme;
     public static int ETAT = 1; // Bouton de création rectangle
+    private CommandHandler commandHandler;
 
     public VueConteneur() {
         this.vues = new ArrayList<>();
         this.conteneurFormes = new ConteneurFormes();
         addMouseMotionListener(this);
         addMouseListener(this);
+        this.commandHandler=new CommandHandler();
     }
 
     @Override
@@ -172,5 +175,10 @@ public class VueConteneur extends JPanel implements ConteneurListener, EcouteurF
     public void setVues(ArrayList<Vue> vues) {
         this.vues = vues;
     }
+
+    public CommandHandler getCommandHandler() {
+        return commandHandler;
+    }
+    
 
 }

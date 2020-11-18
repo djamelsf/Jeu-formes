@@ -5,20 +5,36 @@
  */
 package Command;
 
+import model.Forme;
+import view.Vue;
+import view.VueConteneur;
+
 /**
  *
  * @author mac
  */
-public class SuppressionFormeAction implements Action{
+public class SuppressionFormeAction implements Action {
+
+    Forme forme;
+    Vue vue;
+    VueConteneur vueConteneur;
+
+    public SuppressionFormeAction(Forme forme, Vue vue, VueConteneur vueConteneur) {
+        this.forme = forme;
+        this.vue = vue;
+        this.vueConteneur = vueConteneur;
+    }
 
     @Override
     public void operate() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.vueConteneur.removeVue(vue);
+        this.vueConteneur.getConteneurFormes().remove(forme);
     }
 
     @Override
     public void compensate() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.vueConteneur.addVue(vue);
+        this.vueConteneur.getConteneurFormes().add(forme);
     }
-    
+
 }

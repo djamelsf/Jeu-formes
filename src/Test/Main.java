@@ -5,6 +5,7 @@
  */
 package Test;
 
+import Command.CommandHandler;
 import view.VueConteneur;
 
 /**
@@ -20,6 +21,8 @@ public class Main extends javax.swing.JFrame {
         initComponents();
         vueConteneur=new VueConteneur();
         vueConteneur.setSize(500, 500);
+        //jButton6.setEnabled(false);
+        //jButton5.setEnabled(false);
         this.add(vueConteneur);
     }
 
@@ -36,6 +39,8 @@ public class Main extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -67,6 +72,20 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
+        jButton5.setText("UNDO");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+
+        jButton6.setText("REDO");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -74,6 +93,8 @@ public class Main extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(652, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButton6)
+                    .addComponent(jButton5)
                     .addComponent(jButton4)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -95,7 +116,11 @@ public class Main extends javax.swing.JFrame {
                 .addComponent(jButton3)
                 .addGap(18, 18, 18)
                 .addComponent(jButton4)
-                .addContainerGap(232, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jButton5)
+                .addGap(18, 18, 18)
+                .addComponent(jButton6)
+                .addContainerGap(138, Short.MAX_VALUE))
         );
 
         pack();
@@ -120,6 +145,26 @@ public class Main extends javax.swing.JFrame {
         vueConteneur.ETAT=3;
         vueConteneur.changeEtat(3);
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        //vueConteneur.getCommandHandler().undo();
+        
+        //
+        CommandHandler commandHandler = this.vueConteneur.getCommandHandler();
+        commandHandler.undo();
+        this.vueConteneur.modeleMisAjour();
+        this.jButton5.setEnabled(!commandHandler.getStackUndo().isEmpty());
+        this.jButton6.setEnabled(!commandHandler.getStackRedo().isEmpty());
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        
+        CommandHandler commandHandler = this.vueConteneur.getCommandHandler();
+        commandHandler.redo();
+        this.vueConteneur.modeleMisAjour();
+        this.jButton5.setEnabled(!commandHandler.getStackUndo().isEmpty());
+        this.jButton6.setEnabled(!commandHandler.getStackRedo().isEmpty());
+    }//GEN-LAST:event_jButton6ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -161,5 +206,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
     // End of variables declaration//GEN-END:variables
 }

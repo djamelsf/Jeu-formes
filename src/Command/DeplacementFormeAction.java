@@ -5,20 +5,38 @@
  */
 package Command;
 
+import model.Forme;
+import model.Point;
+import view.Vue;
+import view.VueConteneur;
+
 /**
  *
  * @author mac
  */
-public class DeplacementFormeAction implements Action{
+public class DeplacementFormeAction implements Action {
+
+    Forme forme;
+    VueConteneur vueConteneur;
+    Point initialPoint;
+    Point finalPoint;
+
+    public DeplacementFormeAction(Forme forme,Point initialPoint,Point finalPoint, VueConteneur vueConteneur) {
+        this.forme = forme;
+        this.initialPoint=initialPoint;
+        this.finalPoint=finalPoint;
+        this.vueConteneur = vueConteneur;
+    }
 
     @Override
     public void operate() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.vueConteneur.getConteneurFormes().add(forme);
     }
 
     @Override
     public void compensate() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.forme.deplacement(initialPoint);
+        //this.vueConteneur.getConteneurFormes().add(forme);
     }
-    
+
 }
