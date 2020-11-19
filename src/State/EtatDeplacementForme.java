@@ -10,9 +10,12 @@ import Command.DeplacementFormeAction;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
 import javax.swing.JOptionPane;
+import model.Cercle;
 import model.ConteneurFormes;
 import model.Forme;
 import model.Rectangle;
+import view.CercleVue;
+import view.RectangleVue;
 import view.Vue;
 import view.VueConteneur;
 
@@ -31,6 +34,8 @@ public class EtatDeplacementForme implements EtatForme {
     Point fin;
     model.Point intialPoint;
     model.Point finalPoint;
+    Forme currentForme;
+    Vue currentVue;
 
     public EtatDeplacementForme(VueConteneur vueConteneur, ConteneurFormes conteneurFormes) {
         this.vueConteneur = vueConteneur;
@@ -39,22 +44,16 @@ public class EtatDeplacementForme implements EtatForme {
 
     @Override
     public void mousePressed(MouseEvent e) {
-        this.f=null;
-        System.out.println("pressed");
+        this.f = null;
         for (Forme forme : this.conteneurFormes.getFormes()) {
-            System.out.println("presse2");
             if (forme.collisionPoint(e.getPoint())) {
-                System.out.println( "xxxxxxx");
                 for (Vue vue : vueConteneur.getVues()) {
-
                     if (vue.getForme().equals(forme)) {
                         this.f = forme;
                         this.vue = vue;
                         this.conteneurFormes.getFormes().remove(f);
-                        //
-                        this.intialPoint=f.getPointDepart();
-                        System.out.println("1 :"+this.intialPoint.getX()+":->"+intialPoint.getY());
-                        //
+                        this.intialPoint = f.getPointDepart();
+                        System.out.println("1 :" + this.intialPoint.getX() + ":->" + intialPoint.getY());
                         break;
                     }
                 }
@@ -65,12 +64,23 @@ public class EtatDeplacementForme implements EtatForme {
 
     @Override
     public void mouseDragged(MouseEvent e) {
-        
-        if (this.f != null) {
-            finalPoint = new model.Point(e.getPoint().getX(), e.getPoint().getY());
-            this.f.deplacement(finalPoint);
-            this.vueConteneur.modeleMisAjour();
+        model.Point point=new model.Point(e.getX(), 3);
+        if (f instanceof Cercle) {
+            Cercle c = (Cercle) f;
+            currentForme = new Cercle(c.getPointDepart(), c.getRayon());
+            currentVue=new CercleVue((Cercle) currentForme);   
+        }else{
+            Rectangle r=(Rectangle)f;
+            currentForme=new Rectangle(r.getPointDepart(), r.getLargeur(), r.getHauteur());
+            currentVue=new RectangleVue((Rectangle) currentForme);
         }
+        if (deplacementEnCours) {
+            this.vueConteneur.removeVue(vueConteneur.getVues().size() - 1);
+        }
+        System.out.println("x");
+        this.vueConteneur.addVue(currentVue);
+        this.vueConteneur.modeleMisAjour();
+        this.deplacementEnCours = true;
     }
 
     @Override
@@ -79,17 +89,17 @@ public class EtatDeplacementForme implements EtatForme {
             System.out.println("PPPPPPPPPPP");
             //this.f.collision(conteneurFormes);
             //
-            if(this.f.collision(conteneurFormes)){
-                JOptionPane.showMessageDialog(vueConteneur,"Collision detecté");
+            if (this.f.collision(conteneurFormes)) {
+                JOptionPane.showMessageDialog(vueConteneur, "Collision detecté");
                 //this.vueConteneur.removeVue(vue);
                 this.f.deplacement(intialPoint);
-                System.out.println("2 :"+this.f.getPointDepart().getX()+":->"+f.getPointDepart().getY());
+                System.out.println("2 :" + this.f.getPointDepart().getX() + ":->" + f.getPointDepart().getY());
                 this.conteneurFormes.add(f);
                 this.vueConteneur.modeleMisAjour();
-            }else{
-            Action action=new DeplacementFormeAction(f, intialPoint, finalPoint, vueConteneur);
-            this.vueConteneur.getCommandHandler().handle(action);
-                //this.conteneurFormes.add(f);
+            } else {
+                //Action action=new DeplacementFormeAction(f, intialPoint, finalPoint, vueConteneur);
+                //this.vueConteneur.getCommandHandler().handle(action);
+                this.conteneurFormes.add(f);
             }
             //
             //this.conteneurFormes.add(f);
