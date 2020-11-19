@@ -15,4 +15,8 @@ import model.Forme;
 public interface Vue {
     void paint(Graphics2D graphics2D);
     Forme getForme();
+
+    @Override
+    public boolean equals(Object obj);
+    
 }

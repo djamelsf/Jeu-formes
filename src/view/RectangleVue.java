@@ -35,5 +35,15 @@ public class RectangleVue implements Vue{
     public Forme getForme() {
         return this.rectangle;
     }
+    
+    @Override
+    public boolean equals(Object obj) {
+        if(obj==null) return false;
+        if(obj instanceof RectangleVue){
+            RectangleVue rectangleVue=(RectangleVue)obj;
+            return rectangleVue.getForme().equals(this.rectangle);
+        }
+        return false;
+    }
 
 }

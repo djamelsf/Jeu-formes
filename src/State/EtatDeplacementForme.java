@@ -52,8 +52,10 @@ public class EtatDeplacementForme implements EtatForme {
                         this.f = forme;
                         this.vue = vue;
                         this.conteneurFormes.getFormes().remove(f);
+                        this.vueConteneur.removeVue(this.vue);
                         this.intialPoint = f.getPointDepart();
                         System.out.println("1 :" + this.intialPoint.getX() + ":->" + intialPoint.getY());
+                        this.vueConteneur.modeleMisAjour();
                         break;
                     }
                 }
@@ -64,14 +66,14 @@ public class EtatDeplacementForme implements EtatForme {
 
     @Override
     public void mouseDragged(MouseEvent e) {
-        model.Point point=new model.Point(e.getX(), 3);
+        model.Point point=new model.Point(e.getPoint().getX(), e.getPoint().getY());
         if (f instanceof Cercle) {
             Cercle c = (Cercle) f;
-            currentForme = new Cercle(c.getPointDepart(), c.getRayon());
+            currentForme = new Cercle(point, c.getRayon());
             currentVue=new CercleVue((Cercle) currentForme);   
         }else{
             Rectangle r=(Rectangle)f;
-            currentForme=new Rectangle(r.getPointDepart(), r.getLargeur(), r.getHauteur());
+            currentForme=new Rectangle(point, r.getLargeur(), r.getHauteur());
             currentVue=new RectangleVue((Rectangle) currentForme);
         }
         if (deplacementEnCours) {
@@ -85,24 +87,31 @@ public class EtatDeplacementForme implements EtatForme {
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        if (this.f != null) {
-            System.out.println("PPPPPPPPPPP");
-            //this.f.collision(conteneurFormes);
-            //
-            if (this.f.collision(conteneurFormes)) {
+        if(this.f!=null){
+        if (deplacementEnCours) {
+            this.vueConteneur.removeVue(this.vueConteneur.getVues().size()-1);
+
+            if (this.currentForme.collision(conteneurFormes)) {
                 JOptionPane.showMessageDialog(vueConteneur, "Collision detecté");
-                //this.vueConteneur.removeVue(vue);
-                this.f.deplacement(intialPoint);
                 System.out.println("2 :" + this.f.getPointDepart().getX() + ":->" + f.getPointDepart().getY());
+                
+                this.f.deplacement(intialPoint);
                 this.conteneurFormes.add(f);
+                this.vueConteneur.addVue(vue);
+                
+                deplacementEnCours=false;
                 this.vueConteneur.modeleMisAjour();
             } else {
                 //Action action=new DeplacementFormeAction(f, intialPoint, finalPoint, vueConteneur);
                 //this.vueConteneur.getCommandHandler().handle(action);
+                this.f.deplacement(currentForme.getPointDepart());
                 this.conteneurFormes.add(f);
+                this.vueConteneur.addVue(vue);
+                deplacementEnCours=false;
             }
             //
             //this.conteneurFormes.add(f);
+        }
         }
     }
 

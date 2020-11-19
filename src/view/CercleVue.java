@@ -34,5 +34,16 @@ public class CercleVue implements Vue{
     public Forme getForme() {
         return this.cercle;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj==null) return false;
+        if(obj instanceof CercleVue){
+            CercleVue cercleVue=(CercleVue)obj;
+            return cercleVue.getForme().equals(this.cercle);
+        }
+        return false;
+    }
+    
     
 }
