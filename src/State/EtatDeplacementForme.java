@@ -87,6 +87,7 @@ public class EtatDeplacementForme implements EtatForme {
 
     @Override
     public void mouseReleased(MouseEvent e) {
+        this.finalPoint=new model.Point(e.getPoint().getX(), e.getPoint().getY());
         if(this.f!=null){
         if (deplacementEnCours) {
             this.vueConteneur.removeVue(this.vueConteneur.getVues().size()-1);
@@ -102,11 +103,15 @@ public class EtatDeplacementForme implements EtatForme {
                 deplacementEnCours=false;
                 this.vueConteneur.modeleMisAjour();
             } else {
-                //Action action=new DeplacementFormeAction(f, intialPoint, finalPoint, vueConteneur);
-                //this.vueConteneur.getCommandHandler().handle(action);
-                this.f.deplacement(currentForme.getPointDepart());
+                Action action=new DeplacementFormeAction(f, intialPoint, finalPoint, vueConteneur,vue);
+                this.vueConteneur.getCommandHandler().handle(action);
+                
+                
+                
+                //this.f.deplacement(finalPoint);
                 this.conteneurFormes.add(f);
                 this.vueConteneur.addVue(vue);
+                
                 deplacementEnCours=false;
             }
             //
