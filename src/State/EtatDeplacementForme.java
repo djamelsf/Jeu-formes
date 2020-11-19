@@ -87,8 +87,8 @@ public class EtatDeplacementForme implements EtatForme {
                 this.conteneurFormes.add(f);
                 this.vueConteneur.modeleMisAjour();
             }else{
-            //Action action=new DeplacementFormeAction(f, intialPoint, finalPoint, vueConteneur);
-            //this.vueConteneur.getCommandHandler().handle(action);
+            Action action=new DeplacementFormeAction(f, intialPoint, finalPoint, vueConteneur);
+            this.vueConteneur.getCommandHandler().handle(action);
                 //this.conteneurFormes.add(f);
             }
             //

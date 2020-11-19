@@ -36,7 +36,7 @@ public class DeplacementFormeAction implements Action {
     @Override
     public void compensate() {
         this.forme.deplacement(initialPoint);
-        //this.vueConteneur.getConteneurFormes().add(forme);
+        this.vueConteneur.getConteneurFormes().add(forme);
     }
 
 }
