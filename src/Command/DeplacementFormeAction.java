@@ -17,17 +17,15 @@ import view.VueConteneur;
 public class DeplacementFormeAction implements Action {
 
     Forme forme;
-    Vue vue;
     VueConteneur vueConteneur;
     Point initialPoint;
     Point finalPoint;
 
-    public DeplacementFormeAction(Forme forme, Point initialPoint, Point finalPoint, VueConteneur vueConteneur, Vue vue) {
+    public DeplacementFormeAction(Forme forme, Point initialPoint, Point finalPoint, VueConteneur vueConteneur) {
         this.forme = forme;
         this.initialPoint = initialPoint;
         this.finalPoint = finalPoint;
         this.vueConteneur = vueConteneur;
-        this.vue = vue;
     }
 
     @Override
@@ -39,8 +37,6 @@ public class DeplacementFormeAction implements Action {
     @Override
     public void compensate() {
         this.forme.deplacement(initialPoint);
-        //this.vueConteneur.getConteneurFormes().add(forme);
-        //this.vueConteneur.addVue(vue);
     }
 
 }

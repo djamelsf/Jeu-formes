@@ -18,5 +18,9 @@ public interface Forme {
     @Override
     public boolean equals(Object obj);
     Point getPointDepart();
+
+    @Override
+    public String toString();
+    
     
 }

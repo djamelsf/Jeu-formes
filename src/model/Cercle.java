@@ -115,6 +115,14 @@ public class Cercle extends Point implements Forme {
         return new Point(this.getX(), this.getY());
     }
 
+    @Override
+    public String toString() {
+        String string="Cercle rayon="+this.rayon;
+        return string;
+    }
+    
+    
+
     
     
     

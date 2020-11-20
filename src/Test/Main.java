@@ -6,6 +6,8 @@
 package Test;
 
 import Command.CommandHandler;
+import java.util.ArrayList;
+import model.Forme;
 import view.VueConteneur;
 
 /**
@@ -13,13 +15,15 @@ import view.VueConteneur;
  * @author mac
  */
 public class Main extends javax.swing.JFrame {
+
     VueConteneur vueConteneur;
+
     /**
      * Creates new form Main
      */
     public Main() {
         initComponents();
-        vueConteneur=new VueConteneur();
+        vueConteneur = new VueConteneur();
         vueConteneur.setSize(500, 500);
         //jButton6.setEnabled(false);
         //jButton5.setEnabled(false);
@@ -41,6 +45,8 @@ public class Main extends javax.swing.JFrame {
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
+        jButton7 = new javax.swing.JButton();
+        jButton8 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -86,6 +92,20 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
+        jButton7.setText("Translation");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
+
+        jButton8.setText("Afficher Conteneur Formes");
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -93,7 +113,6 @@ public class Main extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(652, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton6)
                     .addComponent(jButton5)
                     .addComponent(jButton4)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -102,13 +121,19 @@ public class Main extends javax.swing.JFrame {
                             .addComponent(jButton1))
                         .addGroup(layout.createSequentialGroup()
                             .addGap(21, 21, 21)
-                            .addComponent(jButton3))))
+                            .addComponent(jButton3))
+                        .addComponent(jButton7))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jButton8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addComponent(jButton6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGap(14, 14, 14))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(63, 63, 63)
+                .addGap(16, 16, 16)
+                .addComponent(jButton7)
+                .addGap(18, 18, 18)
                 .addComponent(jButton1)
                 .addGap(33, 33, 33)
                 .addComponent(jButton2)
@@ -120,35 +145,37 @@ public class Main extends javax.swing.JFrame {
                 .addComponent(jButton5)
                 .addGap(18, 18, 18)
                 .addComponent(jButton6)
-                .addContainerGap(138, Short.MAX_VALUE))
+                .addGap(28, 28, 28)
+                .addComponent(jButton8)
+                .addContainerGap(81, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        vueConteneur.ETAT=0;
+        vueConteneur.ETAT = 0;
         vueConteneur.changeEtat(0);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        vueConteneur.ETAT=1;
+        vueConteneur.ETAT = 1;
         vueConteneur.changeEtat(1);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        vueConteneur.ETAT=2;
+        vueConteneur.ETAT = 2;
         vueConteneur.changeEtat(2);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        vueConteneur.ETAT=3;
+        vueConteneur.ETAT = 3;
         vueConteneur.changeEtat(3);
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         //vueConteneur.getCommandHandler().undo();
-        
+
         //
         CommandHandler commandHandler = this.vueConteneur.getCommandHandler();
         commandHandler.undo();
@@ -158,13 +185,27 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        
+
         CommandHandler commandHandler = this.vueConteneur.getCommandHandler();
         commandHandler.redo();
         this.vueConteneur.modeleMisAjour();
         this.jButton5.setEnabled(!commandHandler.getStackUndo().isEmpty());
         this.jButton6.setEnabled(!commandHandler.getStackRedo().isEmpty());
     }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        vueConteneur.ETAT = 4;
+        vueConteneur.changeEtat(4);
+    }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        ArrayList<Forme> f= this.vueConteneur.getConteneurFormes().getFormes();
+        for (Forme forme : f) {
+            System.out.println(forme);
+        }
+
+
+    }//GEN-LAST:event_jButton8ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -208,5 +249,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
+    private javax.swing.JButton jButton8;
     // End of variables declaration//GEN-END:variables
 }

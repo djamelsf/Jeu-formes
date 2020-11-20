@@ -133,4 +133,12 @@ public class Rectangle extends Point implements Forme {
         return new Point(this.getX(), this.getY());
     }
 
+    @Override
+    public String toString() {
+        String str="Rectangle largeur="+this.largeur+" hauteur="+this.hauteur;
+        return str;
+    }
+    
+    
+
 }

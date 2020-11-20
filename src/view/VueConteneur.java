@@ -11,6 +11,7 @@ import State.EtatCreerRectangle;
 import State.EtatDeplacementForme;
 import State.EtatForme;
 import State.EtatSuppressionForme;
+import State.EtatTranslationForme;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
@@ -44,7 +45,7 @@ public class VueConteneur extends JPanel implements ConteneurListener, EcouteurF
         this.conteneurFormes = new ConteneurFormes();
         addMouseMotionListener(this);
         addMouseListener(this);
-        this.commandHandler=new CommandHandler();
+        this.commandHandler = new CommandHandler();
     }
 
     @Override
@@ -55,9 +56,9 @@ public class VueConteneur extends JPanel implements ConteneurListener, EcouteurF
             vue.paint(gr);
         }
     }
-    
-    public void generateRandomForme(){
-        double i=Math.random()*10;
+
+    public void generateRandomForme() {
+        double i = Math.random() * 10;
     }
 
     public void changeEtat(int i) {
@@ -66,13 +67,16 @@ public class VueConteneur extends JPanel implements ConteneurListener, EcouteurF
                 etatForme = new EtatCreerRectangle(this, conteneurFormes);
                 break;
             case 1:
-                etatForme= new EtatCreerCercle(this, conteneurFormes);
+                etatForme = new EtatCreerCercle(this, conteneurFormes);
                 break;
             case 2:
-                etatForme= new EtatDeplacementForme(this, conteneurFormes);
+                etatForme = new EtatDeplacementForme(this, conteneurFormes);
                 break;
             case 3:
-                etatForme=new EtatSuppressionForme(this, conteneurFormes);
+                etatForme = new EtatSuppressionForme(this, conteneurFormes);
+                break;
+            case 4:
+                etatForme = new EtatTranslationForme(this, conteneurFormes);
                 break;
             default:
         }
@@ -131,26 +135,7 @@ public class VueConteneur extends JPanel implements ConteneurListener, EcouteurF
 
     @Override
     public void mousePressed(MouseEvent e) {
-        switch (ETAT) {
-            case 0:
-                //etatForme = new EtatCreerRectangle(this, conteneurFormes);
-                etatForme.mousePressed(e);
-                break;
-            case 1:
-                //etatForme = new EtatCreerCercle(this, conteneurFormes);
-                etatForme.mousePressed(e);
-                break;
-            case 2:
-                //etatForme = new EtatDeplacementForme(this, conteneurFormes);
-                etatForme.mousePressed(e);
-                break;
-            case 3:
-                etatForme.mousePressed(e);
-                break;
-            default:
-            // code block
-        }
-
+        etatForme.mousePressed(e);
     }
 
     @Override
@@ -179,6 +164,5 @@ public class VueConteneur extends JPanel implements ConteneurListener, EcouteurF
     public CommandHandler getCommandHandler() {
         return commandHandler;
     }
-    
 
 }
