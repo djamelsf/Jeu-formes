@@ -7,8 +7,10 @@ package State;
 
 import Command.Action;
 import Command.AjoutFormeAction;
+import Test.Main;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
+import javax.swing.JOptionPane;
 import model.Cercle;
 import model.ConteneurFormes;
 import view.CercleVue;
@@ -54,13 +56,21 @@ public class EtatCreerCercle implements EtatForme {
     @Override
     public void mouseReleased(MouseEvent e) {
         if (dessinEnCours) {
-            this.vueConteneur.removeVue(this.vueConteneur.getVues().size()-1);
+            this.vueConteneur.removeVue(this.vueConteneur.getVues().size() - 1);
             // add somthing here
             this.fin = e.getPoint();
             dessinEnCours = false;
             cercle.collision(this.conteneurFormes);
-            Action action=new AjoutFormeAction(cercle, cercleVue, vueConteneur);
-            this.vueConteneur.getCommandHandler().handle(action);
+            if (!cercle.collision(this.conteneurFormes) && cercle.formeValidee()) {
+                Action action = new AjoutFormeAction(cercle, cercleVue, vueConteneur);
+                this.vueConteneur.getCommandHandler().handle(action);
+                Main.jButton5.setEnabled(!vueConteneur.getCommandHandler().getStackUndo().isEmpty());
+                Main.jButton6.setEnabled(!vueConteneur.getCommandHandler().getStackRedo().isEmpty());
+            }else{
+                JOptionPane.showMessageDialog(vueConteneur, "Dessin impossible !");
+            }
+            this.vueConteneur.modeleMisAjour();
+
             //conteneurFormes.add(cercle);
             //MAJ OU PAS?
         }

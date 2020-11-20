@@ -7,8 +7,10 @@ package State;
 
 import Command.Action;
 import Command.AjoutFormeAction;
+import Test.Main;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
+import javax.swing.JOptionPane;
 import model.ConteneurFormes;
 import model.Forme;
 import model.Rectangle;
@@ -55,12 +57,19 @@ public class EtatCreerRectangle implements EtatForme {
     @Override
     public void mouseReleased(MouseEvent e) {
         if (dessinEnCours) {
-            this.vueConteneur.removeVue(this.vueConteneur.getVues().size()-1);
+            this.vueConteneur.removeVue(this.vueConteneur.getVues().size() - 1);
             this.fin = e.getPoint();
             dessinEnCours = false;
-            rectangle.collision(this.conteneurFormes);
-            Action action=new AjoutFormeAction(rectangle, rectangleVue, vueConteneur);
-            this.vueConteneur.getCommandHandler().handle(action);
+            if (!rectangle.collision(this.conteneurFormes) && rectangle.formeValidee()) {
+                Action action = new AjoutFormeAction(rectangle, rectangleVue, vueConteneur);
+                this.vueConteneur.getCommandHandler().handle(action);
+                Main.jButton5.setEnabled(!vueConteneur.getCommandHandler().getStackUndo().isEmpty());
+                Main.jButton6.setEnabled(!vueConteneur.getCommandHandler().getStackRedo().isEmpty());
+            }else{
+                JOptionPane.showMessageDialog(vueConteneur, "Dessin impossible !");
+            }
+            this.vueConteneur.modeleMisAjour();
+
             //conteneurFormes.add(rectangle);
         }
     }

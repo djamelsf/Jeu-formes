@@ -21,6 +21,6 @@ public interface Forme {
 
     @Override
     public String toString();
-    
+    public boolean formeValidee();
     
 }

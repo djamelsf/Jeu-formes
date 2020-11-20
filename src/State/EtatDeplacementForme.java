@@ -7,6 +7,7 @@ package State;
 
 import Command.Action;
 import Command.DeplacementFormeAction;
+import Test.Main;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
 import javax.swing.JOptionPane;
@@ -96,7 +97,7 @@ public class EtatDeplacementForme implements EtatForme {
             if (deplacementEnCours) {
                 this.vueConteneur.removeVue(this.vueConteneur.getVues().size() - 1);
 
-                if (this.currentForme.collision(conteneurFormes)) {
+                if (this.currentForme.collision(conteneurFormes) || (!this.currentForme.formeValidee())) {
                     JOptionPane.showMessageDialog(vueConteneur, "Collision detecté");
                     System.out.println("2 :" + this.f.getPointDepart().getX() + ":->" + f.getPointDepart().getY());
 
@@ -109,6 +110,9 @@ public class EtatDeplacementForme implements EtatForme {
                 } else {
                     Action action = new DeplacementFormeAction(f, intialPoint, finalPoint, vueConteneur);
                     this.vueConteneur.getCommandHandler().handle(action);
+                    
+                    Main.jButton5.setEnabled(!vueConteneur.getCommandHandler().getStackUndo().isEmpty());
+                    Main.jButton6.setEnabled(!vueConteneur.getCommandHandler().getStackRedo().isEmpty());
 
                     //this.f.deplacement(finalPoint);
                     this.conteneurFormes.add(f);

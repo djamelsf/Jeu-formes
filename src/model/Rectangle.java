@@ -104,12 +104,9 @@ public class Rectangle extends Point implements Forme {
     public boolean collisionPoint(java.awt.Point point) {
 
         if (point.getX() >= this.getX()
-                && 
-                point.getX() <= this.getX() + this.largeur
-                && 
-                point.getY() >= this.getY()
-                && 
-                point.getY() <= this.getY() + this.hauteur) {   
+                && point.getX() <= this.getX() + this.largeur
+                && point.getY() >= this.getY()
+                && point.getY() <= this.getY() + this.hauteur) {
             return true;
         }
         return false;
@@ -135,10 +132,41 @@ public class Rectangle extends Point implements Forme {
 
     @Override
     public String toString() {
-        String str="Rectangle largeur="+this.largeur+" hauteur="+this.hauteur;
+        String str = "Rectangle largeur=" + this.largeur + " hauteur=" + this.hauteur;
         return str;
     }
-    
-    
+
+    @Override
+    public boolean formeValidee() {
+        return (this.getHauteur() > 0 && this.getLargeur() > 0) && !lineRect(0, 0, 0, 500) && !lineRect(0, 0, 500, 0) && !lineRect(500, 0, 500, 500)
+                && !lineRect(0, 500, 500, 500);
+    }
+
+    boolean lineRect(double x1, double y1, double x2, double y2) {
+
+        boolean left = lineLine(x1, y1, x2, y2, this.getX(), this.getY(), this.getX(), this.getY() + this.hauteur);
+        boolean right = lineLine(x1, y1, x2, y2, this.getX() + this.largeur, this.getY(), this.getX() + this.largeur, this.getY() + this.hauteur);
+        boolean top = lineLine(x1, y1, x2, y2, this.getX(), this.getY(), this.getX() + this.largeur, this.getY());
+        boolean bottom = lineLine(x1, y1, x2, y2, this.getX(), this.getY() + this.hauteur, this.getX() + this.largeur, this.getY() + this.hauteur);
+
+        if (left || right || top || bottom) {
+            return true;
+        }
+        return false;
+    }
+
+    boolean lineLine(double x1, double y1, double x2, double y2, double x3, double y3, double x4, double y4) {
+
+        // calculate the direction of the lines
+        double uA = ((x4 - x3) * (y1 - y3) - (y4 - y3) * (x1 - x3)) / ((y4 - y3) * (x2 - x1) - (x4 - x3) * (y2 - y1));
+        double uB = ((x2 - x1) * (y1 - y3) - (y2 - y1) * (x1 - x3)) / ((y4 - y3) * (x2 - x1) - (x4 - x3) * (y2 - y1));
+
+        // if uA and uB are between 0-1, lines are colliding
+        if (uA >= 0 && uA <= 1 && uB >= 0 && uB <= 1) {
+
+            return true;
+        }
+        return false;
+    }
 
 }

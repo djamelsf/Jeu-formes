@@ -8,6 +8,7 @@ package State;
 import Command.Action;
 import Command.AjoutFormeAction;
 import Command.SuppressionFormeAction;
+import Test.Main;
 import java.awt.event.MouseEvent;
 import model.ConteneurFormes;
 import model.Forme;
@@ -53,6 +54,10 @@ public class EtatSuppressionForme implements EtatForme {
                         //this.conteneurFormes.remove(forme);
                         Action action=new SuppressionFormeAction(forme, vue, vueConteneur);
                         this.vueConteneur.getCommandHandler().handle(action);
+                        
+                        Main.jButton5.setEnabled(!vueConteneur.getCommandHandler().getStackUndo().isEmpty());
+                        Main.jButton6.setEnabled(!vueConteneur.getCommandHandler().getStackRedo().isEmpty());
+                        
                         this.vueConteneur.modeleMisAjour();
                         break;
                     }

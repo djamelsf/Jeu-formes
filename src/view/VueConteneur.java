@@ -12,6 +12,7 @@ import State.EtatDeplacementForme;
 import State.EtatForme;
 import State.EtatSuppressionForme;
 import State.EtatTranslationForme;
+import Test.Main;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
@@ -46,6 +47,8 @@ public class VueConteneur extends JPanel implements ConteneurListener, EcouteurF
         addMouseMotionListener(this);
         addMouseListener(this);
         this.commandHandler = new CommandHandler();
+        Main.jButton5.setEnabled(!commandHandler.getStackUndo().isEmpty());
+        Main.jButton6.setEnabled(!commandHandler.getStackRedo().isEmpty());
     }
 
     @Override
