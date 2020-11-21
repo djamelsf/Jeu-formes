@@ -20,6 +20,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
 import model.Cercle;
 import model.ConteneurFormes;
 import model.Forme;
@@ -49,6 +50,7 @@ public class VueConteneur extends JPanel implements ConteneurListener, EcouteurF
         this.commandHandler = new CommandHandler();
         Main.jButton5.setEnabled(!commandHandler.getStackUndo().isEmpty());
         Main.jButton6.setEnabled(!commandHandler.getStackRedo().isEmpty());
+        tableMAJ();
     }
 
     @Override
@@ -60,11 +62,31 @@ public class VueConteneur extends JPanel implements ConteneurListener, EcouteurF
         }
     }
 
+    public void tableMAJ() {
+        int i = 0;
+        DefaultTableModel modelTable = new DefaultTableModel();
+        String[] ligne0 = {"forme", "surface"};
+        modelTable.setColumnIdentifiers(ligne0);
+        for (Forme forme : conteneurFormes.getFormes()) {
+            if (forme instanceof Rectangle) {
+                String[] ligne = {"Rectangle " + i, String.valueOf(forme.calculSurface())};
+                modelTable.addRow(ligne);
+            }
+            if (forme instanceof Cercle) {
+                String[] ligne = {"Cercle " + i, String.valueOf(forme.calculSurface())};
+                modelTable.addRow(ligne);
+            }
+            i++;
+        }
+        Main.jTable1.setModel(modelTable);
+    }
+
     public void generateRandomForme() {
         double i = Math.random() * 10;
     }
 
     public void changeEtat(int i) {
+        tableMAJ();
         switch (i) {
             case 0:
                 etatForme = new EtatCreerRectangle(this, conteneurFormes);

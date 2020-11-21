@@ -22,7 +22,7 @@ public class Cercle extends Point implements Forme {
 
     @Override
     public double calculSurface() {
-        return Math.sqrt(rayon) * Math.PI;
+        return rayon*rayon* Math.PI;
     }
 
     public double getRayon() {

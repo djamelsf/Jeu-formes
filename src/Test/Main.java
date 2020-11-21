@@ -277,6 +277,6 @@ public class Main extends javax.swing.JFrame {
     public static javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    public static javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 }
