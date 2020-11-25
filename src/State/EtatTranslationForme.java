@@ -8,6 +8,7 @@ package State;
 import Command.Action;
 import Command.TranslationFormeAction;
 import Test.Main;
+import java.awt.Color;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
 import javax.swing.JOptionPane;
@@ -48,8 +49,11 @@ public class EtatTranslationForme implements EtatForme {
             if (forme.collisionPoint(e.getPoint())) {
                 for (Vue vue : vueConteneur.getVues()) {
                     if (vue.getForme().equals(forme)) {
-                        this.f = forme;
-                        this.vue = vue;
+                        if (vue.getCouleur() != Color.red) {
+                            this.f = forme;
+                            this.vue = vue;
+                        }
+
                         break;
                     }
                 }
@@ -65,11 +69,11 @@ public class EtatTranslationForme implements EtatForme {
             if (f instanceof Cercle) {
                 Cercle c = (Cercle) f;
                 currentForme = new Cercle(c.getPointDepart(), e.getX() - c.getPointDepart().getX());
-                currentVue = new CercleVue((Cercle) currentForme);
+                currentVue = new CercleVue((Cercle) currentForme, Color.blue);
             } else {
                 Rectangle r = (Rectangle) f;
                 currentForme = new Rectangle(r.getPointDepart(), e.getX() - r.getPointDepart().getX(), e.getY() - r.getPointDepart().getY());
-                currentVue = new RectangleVue((Rectangle) currentForme);
+                currentVue = new RectangleVue((Rectangle) currentForme, Color.blue);
             }
             if (translationEnCours) {
                 this.vueConteneur.removeVue(vueConteneur.getVues().size() - 1);
@@ -100,11 +104,10 @@ public class EtatTranslationForme implements EtatForme {
                 } else {
                     Action action = new TranslationFormeAction(f, vueConteneur, currentForme);
                     this.vueConteneur.getCommandHandler().handle(action);
-                    
+
                     Main.jButton5.setEnabled(!vueConteneur.getCommandHandler().getStackUndo().isEmpty());
                     Main.jButton6.setEnabled(!vueConteneur.getCommandHandler().getStackRedo().isEmpty());
-                    
-                    
+
                     this.conteneurFormes.add(f);
                     this.vueConteneur.addVue(vue);
 

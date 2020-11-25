@@ -13,6 +13,7 @@ import State.EtatForme;
 import State.EtatSuppressionForme;
 import State.EtatTranslationForme;
 import Test.Main;
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
@@ -24,6 +25,7 @@ import javax.swing.table.DefaultTableModel;
 import model.Cercle;
 import model.ConteneurFormes;
 import model.Forme;
+import model.Point;
 import model.Rectangle;
 import util.ConteneurListener;
 import util.EcouteurFormes;
@@ -51,6 +53,7 @@ public class VueConteneur extends JPanel implements ConteneurListener, EcouteurF
         Main.jButton5.setEnabled(!commandHandler.getStackUndo().isEmpty());
         Main.jButton6.setEnabled(!commandHandler.getStackRedo().isEmpty());
         tableMAJ();
+        generateRandomFormes();
     }
 
     @Override
@@ -81,8 +84,38 @@ public class VueConteneur extends JPanel implements ConteneurListener, EcouteurF
         Main.jTable1.setModel(modelTable);
     }
 
-    public void generateRandomForme() {
-        double i = Math.random() * 10;
+    public void generateRandomFormes() {
+        Rectangle rectangle;
+        Cercle cercle;
+
+        for (int j = 0; j < 4; j++) {
+            int f = (int) (Math.random() * 2);
+            if (f == 0) {
+                do {
+                    double x = Math.random() * 300;
+                    double y = Math.random() * 300;
+                    double rayon = 50 + (Math.random() * 256);
+                    cercle = new Cercle(new Point(x, y), rayon);
+                } while (cercle.collision(conteneurFormes) || !cercle.formeValidee());
+                conteneurFormes.add(cercle);
+                vues.add(new CercleVue(cercle, Color.red));
+            } else {
+                do {
+                    double x = Math.random() * 300;
+                    double y = Math.random() * 300;
+                    double largeur = 50 + (Math.random() * 256);
+                    double hauteur = 50 + (Math.random() * 256);
+                    rectangle = new Rectangle(new Point(x, y), largeur, hauteur);
+                } while (rectangle.collision(conteneurFormes) || !rectangle.formeValidee());
+                conteneurFormes.add(rectangle);
+                vues.add(new RectangleVue(rectangle, Color.red));
+            }
+        }
+        modeleMisAjour();
+    }
+    
+    public boolean quatreFormesDeposee(){
+        return this.conteneurFormes.getFormes().size()==8;
     }
 
     public void changeEtat(int i) {

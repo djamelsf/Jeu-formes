@@ -8,6 +8,7 @@ package State;
 import Command.Action;
 import Command.DeplacementFormeAction;
 import Test.Main;
+import java.awt.Color;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
 import javax.swing.JOptionPane;
@@ -50,13 +51,12 @@ public class EtatDeplacementForme implements EtatForme {
             if (forme.collisionPoint(e.getPoint())) {
                 for (Vue vue : vueConteneur.getVues()) {
                     if (vue.getForme().equals(forme)) {
-                        this.f = forme;
-                        this.vue = vue;
-                        //this.conteneurFormes.getFormes().remove(f);
-                        //this.vueConteneur.removeVue(this.vue);
-                        this.intialPoint = f.getPointDepart();
-                        System.out.println("1 :" + this.intialPoint.getX() + ":->" + intialPoint.getY());
-                        //this.vueConteneur.modeleMisAjour();
+                        if (vue.getCouleur() != Color.red) {
+                            this.f = forme;
+                            this.vue = vue;
+                            this.intialPoint = f.getPointDepart();
+                        }
+
                         break;
                     }
                 }
@@ -72,11 +72,11 @@ public class EtatDeplacementForme implements EtatForme {
             if (f instanceof Cercle) {
                 Cercle c = (Cercle) f;
                 currentForme = new Cercle(point, c.getRayon());
-                currentVue = new CercleVue((Cercle) currentForme);
+                currentVue = new CercleVue((Cercle) currentForme, Color.blue);
             } else {
                 Rectangle r = (Rectangle) f;
                 currentForme = new Rectangle(point, r.getLargeur(), r.getHauteur());
-                currentVue = new RectangleVue((Rectangle) currentForme);
+                currentVue = new RectangleVue((Rectangle) currentForme, Color.blue);
             }
             if (deplacementEnCours) {
                 this.vueConteneur.removeVue(vueConteneur.getVues().size() - 1);
@@ -110,7 +110,7 @@ public class EtatDeplacementForme implements EtatForme {
                 } else {
                     Action action = new DeplacementFormeAction(f, intialPoint, finalPoint, vueConteneur);
                     this.vueConteneur.getCommandHandler().handle(action);
-                    
+
                     Main.jButton5.setEnabled(!vueConteneur.getCommandHandler().getStackUndo().isEmpty());
                     Main.jButton6.setEnabled(!vueConteneur.getCommandHandler().getStackRedo().isEmpty());
 

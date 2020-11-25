@@ -8,6 +8,7 @@ package State;
 import Command.Action;
 import Command.AjoutFormeAction;
 import Test.Main;
+import java.awt.Color;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
 import javax.swing.JOptionPane;
@@ -38,14 +39,18 @@ public class EtatCreerRectangle implements EtatForme {
 
     @Override
     public void mousePressed(MouseEvent e) {
-        this.depart = e.getPoint();
+        if (!this.vueConteneur.quatreFormesDeposee()) {
+            this.depart = e.getPoint();
+        } else {
+            JOptionPane.showMessageDialog(vueConteneur, "4 formes dèja deposées !");
+        }
     }
 
     @Override
     public void mouseDragged(MouseEvent e) {
         model.Point p = new model.Point(depart.getX(), depart.getY());
         rectangle = new Rectangle(p, e.getX() - depart.getX(), e.getY() - depart.getY());
-        this.rectangleVue = new RectangleVue(rectangle);
+        this.rectangleVue = new RectangleVue(rectangle,Color.blue);
         if (dessinEnCours) {
             this.vueConteneur.removeVue(vueConteneur.getVues().size() - 1);
         }

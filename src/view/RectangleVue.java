@@ -19,15 +19,17 @@ import model.Rectangle;
 public class RectangleVue implements Vue{
 
     private Rectangle rectangle;
+    private Color couleur;
 
-    public RectangleVue(Rectangle rectangle) {
+    public RectangleVue(Rectangle rectangle, Color couleur) {
         this.rectangle = rectangle;
+        this.couleur=couleur;
     }
 
     @Override
     public void paint(Graphics2D graphics2D) {
         Shape shape = new Rectangle2D.Double(rectangle.getX(), rectangle.getY(), rectangle.getLargeur(), rectangle.getHauteur());
-        graphics2D.setColor(Color.BLUE);
+        graphics2D.setColor(this.couleur);
         graphics2D.draw(shape);
     }
 
@@ -45,5 +47,24 @@ public class RectangleVue implements Vue{
         }
         return false;
     }
+
+    public Rectangle getRectangle() {
+        return rectangle;
+    }
+
+    public void setRectangle(Rectangle rectangle) {
+        this.rectangle = rectangle;
+    }
+
+    @Override
+    public Color getCouleur() {
+        return couleur;
+    }
+
+    public void setCouleur(Color couleur) {
+        this.couleur = couleur;
+    }
+    
+    
 
 }
