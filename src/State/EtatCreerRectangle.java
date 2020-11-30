@@ -7,7 +7,7 @@ package State;
 
 import Command.Action;
 import Command.AjoutFormeAction;
-import Test.Main;
+import Test.Gui;
 import java.awt.Color;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
@@ -68,8 +68,8 @@ public class EtatCreerRectangle implements EtatForme {
             if (!rectangle.collision(this.conteneurFormes) && rectangle.formeValidee()) {
                 Action action = new AjoutFormeAction(rectangle, rectangleVue, vueConteneur);
                 this.vueConteneur.getCommandHandler().handle(action);
-                Main.jButton5.setEnabled(!vueConteneur.getCommandHandler().getStackUndo().isEmpty());
-                Main.jButton6.setEnabled(!vueConteneur.getCommandHandler().getStackRedo().isEmpty());
+                Gui.undo.setEnabled(!vueConteneur.getCommandHandler().getStackUndo().isEmpty());
+                Gui.redo.setEnabled(!vueConteneur.getCommandHandler().getStackRedo().isEmpty());
             }else{
                 JOptionPane.showMessageDialog(vueConteneur, "Dessin impossible !");
             }

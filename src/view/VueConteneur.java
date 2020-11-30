@@ -12,14 +12,16 @@ import State.EtatDeplacementForme;
 import State.EtatForme;
 import State.EtatSuppressionForme;
 import State.EtatTranslationForme;
-import Test.Main;
+import Test.Gui;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
+import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 import model.Cercle;
@@ -45,13 +47,17 @@ public class VueConteneur extends JPanel implements ConteneurListener, EcouteurF
     private CommandHandler commandHandler;
 
     public VueConteneur() {
+        this.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.BLACK));
+        this.setPreferredSize(new Dimension(1800, 800));
+        this.setMaximumSize(new Dimension(1800, 800));
+        //this.setSize(500, 500);
         this.vues = new ArrayList<>();
         this.conteneurFormes = new ConteneurFormes();
         addMouseMotionListener(this);
         addMouseListener(this);
         this.commandHandler = new CommandHandler();
-        Main.jButton5.setEnabled(!commandHandler.getStackUndo().isEmpty());
-        Main.jButton6.setEnabled(!commandHandler.getStackRedo().isEmpty());
+        Gui.undo.setEnabled(!commandHandler.getStackUndo().isEmpty());
+        Gui.undo.setEnabled(!commandHandler.getStackRedo().isEmpty());
         tableMAJ();
         generateRandomFormes();
     }
@@ -81,7 +87,7 @@ public class VueConteneur extends JPanel implements ConteneurListener, EcouteurF
             }
             i++;
         }
-        Main.jTable1.setModel(modelTable);
+        Gui.tableau.setModel(modelTable);
     }
 
     public void generateRandomFormes() {
@@ -113,9 +119,9 @@ public class VueConteneur extends JPanel implements ConteneurListener, EcouteurF
         }
         modeleMisAjour();
     }
-    
-    public boolean quatreFormesDeposee(){
-        return this.conteneurFormes.getFormes().size()==8;
+
+    public boolean quatreFormesDeposee() {
+        return this.conteneurFormes.getFormes().size() == 8;
     }
 
     public void changeEtat(int i) {

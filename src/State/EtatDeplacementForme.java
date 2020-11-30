@@ -7,7 +7,7 @@ package State;
 
 import Command.Action;
 import Command.DeplacementFormeAction;
-import Test.Main;
+import Test.Gui;
 import java.awt.Color;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
@@ -111,8 +111,8 @@ public class EtatDeplacementForme implements EtatForme {
                     Action action = new DeplacementFormeAction(f, intialPoint, finalPoint, vueConteneur);
                     this.vueConteneur.getCommandHandler().handle(action);
 
-                    Main.jButton5.setEnabled(!vueConteneur.getCommandHandler().getStackUndo().isEmpty());
-                    Main.jButton6.setEnabled(!vueConteneur.getCommandHandler().getStackRedo().isEmpty());
+                    Gui.undo.setEnabled(!vueConteneur.getCommandHandler().getStackUndo().isEmpty());
+                    Gui.redo.setEnabled(!vueConteneur.getCommandHandler().getStackRedo().isEmpty());
 
                     //this.f.deplacement(finalPoint);
                     this.conteneurFormes.add(f);
