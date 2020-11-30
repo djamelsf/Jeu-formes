@@ -45,11 +45,14 @@ public class VueConteneur extends JPanel implements ConteneurListener, EcouteurF
     public static EtatForme etatForme;
     public static int ETAT = 1; // Bouton de création rectangle
     private CommandHandler commandHandler;
+    public static int largeur=1000;
+    public static int hauteur=400;
+    
 
     public VueConteneur() {
         this.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.BLACK));
-        this.setPreferredSize(new Dimension(1800, 800));
-        this.setMaximumSize(new Dimension(1800, 800));
+        this.setPreferredSize(new Dimension(1000, 400));
+        this.setMaximumSize(new Dimension(1000, 400));
         //this.setSize(500, 500);
         this.vues = new ArrayList<>();
         this.conteneurFormes = new ConteneurFormes();

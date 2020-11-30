@@ -5,6 +5,8 @@
  */
 package model;
 
+import view.VueConteneur;
+
 /**
  *
  * @author mac
@@ -138,8 +140,8 @@ public class Rectangle extends Point implements Forme {
 
     @Override
     public boolean formeValidee() {
-        return (this.getHauteur() > 0 && this.getLargeur() > 0) && !lineRect(0, 0, 0, 500) && !lineRect(0, 0, 500, 0) && !lineRect(500, 0, 500, 500)
-                && !lineRect(0, 500, 500, 500);
+        return (this.getHauteur() > 0 && this.getLargeur() > 0) && !lineRect(0, 0, 0, VueConteneur.hauteur) && !lineRect(0, 0, VueConteneur.largeur, 0) && !lineRect(VueConteneur.largeur, 0, VueConteneur.largeur, VueConteneur.hauteur)
+                && !lineRect(0, VueConteneur.hauteur, VueConteneur.largeur, VueConteneur.hauteur);
     }
 
     boolean lineRect(double x1, double y1, double x2, double y2) {

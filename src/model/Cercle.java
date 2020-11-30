@@ -6,6 +6,7 @@
 package model;
 
 import static java.lang.Math.sqrt;
+import view.VueConteneur;
 
 /**
  *
@@ -127,8 +128,8 @@ public class Cercle extends Point implements Forme {
 
     @Override
     public boolean formeValidee() {
-        return this.getRayon() > 0 && !lineCircle(0, 0, 0, 500) && !lineCircle(0, 0, 500, 0) && !lineCircle(500, 0, 500, 500)
-                && !lineCircle(0, 500, 500, 500);
+        return this.getRayon() > 0 && !lineCircle(0, 0, 0, VueConteneur.hauteur) && !lineCircle(0, 0, VueConteneur.largeur, 0) && !lineCircle(VueConteneur.largeur, 0, VueConteneur.largeur, VueConteneur.hauteur)
+                && !lineCircle(0, VueConteneur.hauteur, VueConteneur.largeur, VueConteneur.hauteur);
     }
 
     boolean pointCircle(double px, double py) {
