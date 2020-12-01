@@ -31,6 +31,7 @@ public class Gui extends JFrame {
     public static JButton suppression;
     public static JButton undo;
     public static JButton redo;
+    public static JButton resoudre;
 
     public static JTable tableau;
     public JScrollPane scrollPane;
@@ -39,7 +40,7 @@ public class Gui extends JFrame {
 
     public Gui() {
         //this.setSize(1800, 800);
-        this.setLayout(new BoxLayout(this.getContentPane(), BoxLayout.Y_AXIS));
+        this.setLayout(new BoxLayout(this.getContentPane(), 2));
 
         barre = new JMenuBar();
         setJMenuBar(barre);
@@ -50,9 +51,8 @@ public class Gui extends JFrame {
                 JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
                 JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         
-        
         vueConteneur = new VueConteneur();
-        vueConteneur.setBackground(Color.black);
+        vueConteneur.setBackground(Color.WHITE);
         this.add(vueConteneur, java.awt.BorderLayout.CENTER);
 
         this.add(scrollPane);
@@ -71,60 +71,65 @@ public class Gui extends JFrame {
     public void generateButtons() {
         this.creationRectagle = new JButton("Rectangle");
         this.barre.add(creationRectagle);
-        this.creationRectagle.addActionListener(this::EventCreationRectagle);
+        this.creationRectagle.addActionListener(this::eventCreationRectagle);
 
         this.creationCercle = new JButton("Cercle");
         this.barre.add(creationCercle);
-        this.creationCercle.addActionListener(this::EventCreationCercle);
+        this.creationCercle.addActionListener(this::eventCreationCercle);
 
         this.translation = new JButton("translation");
         this.barre.add(translation);
-        this.translation.addActionListener(this::EventTranslation);
+        this.translation.addActionListener(this::eventTranslation);
 
         this.deplacement = new JButton("deplacement");
         this.barre.add(deplacement);
-        this.deplacement.addActionListener(this::EventDeplacement);
+        this.deplacement.addActionListener(this::eventDeplacement);
 
         this.suppression = new JButton("suppression");
         this.barre.add(suppression);
-        this.suppression.addActionListener(this::EventSuppression);
+        this.suppression.addActionListener(this::eventSuppression);
 
         this.undo = new JButton("undo");
         this.barre.add(undo);
-        this.undo.addActionListener(this::EventUndo);
+        this.undo.addActionListener(this::eventUndo);
 
         this.redo = new JButton("redo");
         this.barre.add(redo);
-        this.redo.addActionListener(this::EventRedo);
+        this.redo.addActionListener(this::eventRedo);
+        
+        this.resoudre=new JButton("Resoudre");
+        this.barre.add(resoudre);
+        this.resoudre.addActionListener(this::eventResoudre);
+        
 
     }
 
-    public void EventCreationRectagle(ActionEvent event) {
+    public void eventCreationRectagle(ActionEvent event) {
         vueConteneur.ETAT = 0;
         vueConteneur.changeEtat(0);
     }
 
-    public void EventCreationCercle(ActionEvent event) {
+    public void eventCreationCercle(ActionEvent event) {
         vueConteneur.ETAT = 1;
         vueConteneur.changeEtat(1);
     }
 
-    public void EventTranslation(ActionEvent event) {
+    public void eventTranslation(ActionEvent event) {
         vueConteneur.ETAT = 4;
         vueConteneur.changeEtat(4);
     }
 
-    public void EventDeplacement(ActionEvent event) {
+    public void eventDeplacement(ActionEvent event) {
         vueConteneur.ETAT = 2;
         vueConteneur.changeEtat(2);
     }
 
-    public void EventSuppression(ActionEvent event) {
+    public void eventSuppression(ActionEvent event) {
         vueConteneur.ETAT = 3;
         vueConteneur.changeEtat(3);
     }
 
-    public void EventUndo(ActionEvent event) {
+    public void eventUndo(ActionEvent event) {
         CommandHandler commandHandler = this.vueConteneur.getCommandHandler();
         commandHandler.undo();
         this.vueConteneur.modeleMisAjour();
@@ -132,12 +137,16 @@ public class Gui extends JFrame {
         this.redo.setEnabled(!commandHandler.getStackRedo().isEmpty());
     }
 
-    public void EventRedo(ActionEvent event) {
+    public void eventRedo(ActionEvent event) {
         CommandHandler commandHandler = this.vueConteneur.getCommandHandler();
         commandHandler.redo();
         this.vueConteneur.modeleMisAjour();
         this.undo.setEnabled(!commandHandler.getStackUndo().isEmpty());
         this.redo.setEnabled(!commandHandler.getStackRedo().isEmpty());
+    }
+    
+    public void eventResoudre(ActionEvent event){
+        this.vueConteneur.resoudre();
     }
 
 }

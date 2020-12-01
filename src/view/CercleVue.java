@@ -29,7 +29,7 @@ public class CercleVue implements Vue{
     public void paint(Graphics2D graphics2D) {
         Shape shape= new Ellipse2D.Double(cercle.getX()-cercle.getRayon(), cercle.getY()-cercle.getRayon(), cercle.getRayon()*2, cercle.getRayon()*2);
         graphics2D.setColor(this.couleur);
-        graphics2D.draw(shape);
+        graphics2D.fill(shape);
     }
 
     @Override

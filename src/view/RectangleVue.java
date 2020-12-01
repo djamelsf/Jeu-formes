@@ -30,7 +30,7 @@ public class RectangleVue implements Vue{
     public void paint(Graphics2D graphics2D) {
         Shape shape = new Rectangle2D.Double(rectangle.getX(), rectangle.getY(), rectangle.getLargeur(), rectangle.getHauteur());
         graphics2D.setColor(this.couleur);
-        graphics2D.draw(shape);
+        graphics2D.fill(shape);
     }
 
     @Override

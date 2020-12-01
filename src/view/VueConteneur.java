@@ -22,6 +22,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 import javax.swing.BorderFactory;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 import model.Cercle;
@@ -45,9 +46,10 @@ public class VueConteneur extends JPanel implements ConteneurListener, EcouteurF
     public static EtatForme etatForme;
     public static int ETAT = 1; // Bouton de création rectangle
     private CommandHandler commandHandler;
-    public static int largeur=1000;
-    public static int hauteur=400;
+    public static int largeur = 1000;
+    public static int hauteur = 400;
     
+    public static double score;
 
     public VueConteneur() {
         this.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.BLACK));
@@ -63,6 +65,20 @@ public class VueConteneur extends JPanel implements ConteneurListener, EcouteurF
         Gui.undo.setEnabled(!commandHandler.getStackRedo().isEmpty());
         tableMAJ();
         generateRandomFormes();
+    }
+
+    public void resoudre() {
+        String solution="";
+        if (conteneurFormes.getFormes().size() < 8) {
+            JOptionPane.showMessageDialog(this, "vous devez deposer 4 formes !");
+        } else {
+            double sum=0;
+            for (int i = 4; i < conteneurFormes.getFormes().size(); i++) {
+                sum+=conteneurFormes.getFormes().get(i).calculSurface();
+            }
+            score=sum/(largeur*hauteur);
+            JOptionPane.showMessageDialog(this, "Votre score :"+score);
+        }
     }
 
     @Override
