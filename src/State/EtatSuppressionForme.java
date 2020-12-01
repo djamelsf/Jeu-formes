@@ -10,7 +10,10 @@ import Command.AjoutFormeAction;
 import Command.SuppressionFormeAction;
 import Test.Gui;
 import java.awt.Color;
+import java.awt.Point;
+import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
+import javax.swing.ImageIcon;
 import model.ConteneurFormes;
 import model.Forme;
 import view.Vue;
@@ -28,6 +31,9 @@ public class EtatSuppressionForme implements EtatForme {
     public EtatSuppressionForme(VueConteneur vueConteneur, ConteneurFormes conteneurFormes) {
         this.vueConteneur = vueConteneur;
         this.conteneurFormes = conteneurFormes;
+        vueConteneur.setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
+                new ImageIcon("icons/eraser-hand-drawn-tool.png").getImage(),
+                new Point(0, 0), "custom cursor"));
     }
 
     @Override

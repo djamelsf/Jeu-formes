@@ -63,7 +63,7 @@ public class Gui extends JFrame {
 
         this.add(scrollPane);
 
-        this.setTitle("SurfaMax !");
+        this.setTitle("SurfaMax");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.pack();
         this.setVisible(true);

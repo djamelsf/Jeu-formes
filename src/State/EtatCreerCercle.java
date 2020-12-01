@@ -10,7 +10,9 @@ import Command.AjoutFormeAction;
 import Test.Gui;
 import java.awt.Color;
 import java.awt.Point;
+import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import model.Cercle;
 import model.ConteneurFormes;
@@ -34,6 +36,9 @@ public class EtatCreerCercle implements EtatForme {
     public EtatCreerCercle(VueConteneur vueConteneur, ConteneurFormes conteneurFormes) {
         this.vueConteneur = vueConteneur;
         this.conteneurFormes = conteneurFormes;
+        vueConteneur.setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
+                new ImageIcon("icons/pencil-cursor.png").getImage(),
+                new Point(0, 0), "custom cursor"));
     }
 
     @Override

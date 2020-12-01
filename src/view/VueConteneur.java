@@ -62,7 +62,7 @@ public class VueConteneur extends JPanel implements ConteneurListener, EcouteurF
         addMouseListener(this);
         this.commandHandler = new CommandHandler();
         Gui.undo.setEnabled(!commandHandler.getStackUndo().isEmpty());
-        Gui.undo.setEnabled(!commandHandler.getStackRedo().isEmpty());
+        Gui.redo.setEnabled(!commandHandler.getStackRedo().isEmpty());
         tableMAJ();
         generateRandomFormes();
     }
