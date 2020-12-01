@@ -43,7 +43,7 @@ public class Cercle extends Point implements Forme {
                 double distY = this.getY() - cercle.getY();
                 double distance = Math.sqrt((distX * distX) + (distY * distY));
                 if (distance <= this.getRayon() + cercle.getRayon()) {
-                    System.out.println("CERCLE CERCLE");
+                    //System.out.println("CERCLE CERCLE");
                     return true;
                 }
             }
@@ -68,7 +68,7 @@ public class Cercle extends Point implements Forme {
                 double distance = Math.sqrt((distX * distX) + (distY * distY));
 
                 if (distance <= this.getRayon()) {
-                    System.out.println("COLLISION CERCLE RECT!!!!!");
+                    //System.out.println("COLLISION CERCLE RECT!!!!!");
                     return true;
                 }
             }

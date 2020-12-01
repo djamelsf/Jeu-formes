@@ -67,7 +67,7 @@ public class Rectangle extends Point implements Forme {
                 double distance = Math.sqrt((distX * distX) + (distY * distY));
 
                 if (distance <= c.getRayon()) {
-                    System.out.println("COLLISION CERCLE !!!!!");
+                    //System.out.println("COLLISION CERCLE !!!!!");
                     return true;
                 }
 
@@ -78,7 +78,7 @@ public class Rectangle extends Point implements Forme {
                         && this.getX() <= rectangle.getX() + rectangle.getLargeur()
                         && this.getY() + this.getHauteur() >= rectangle.getY()
                         && this.getY() <= rectangle.getY() + rectangle.getHauteur()) {
-                    System.out.println("COLLISION !!!!!");
+                    //System.out.println("COLLISION !!!!!");
                     return true;
                 }
 
