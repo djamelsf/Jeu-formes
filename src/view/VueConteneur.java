@@ -76,8 +76,8 @@ public class VueConteneur extends JPanel implements ConteneurListener, EcouteurF
             for (int i = 4; i < conteneurFormes.getFormes().size(); i++) {
                 sum+=conteneurFormes.getFormes().get(i).calculSurface();
             }
-            score=sum/(largeur*hauteur);
-            JOptionPane.showMessageDialog(this, "Votre score :"+score);
+            score=sum/(largeur*hauteur)*100;
+            JOptionPane.showMessageDialog(this, "Votre score :"+score+" %");
         }
     }
 
