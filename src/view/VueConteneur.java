@@ -182,6 +182,7 @@ public class VueConteneur extends JPanel implements ConteneurListener, EcouteurF
     @Override
     public void modeleMisAjour() {
         repaint();
+        tableMAJ();
     }
 
     @Override
