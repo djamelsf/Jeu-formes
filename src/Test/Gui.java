@@ -29,7 +29,7 @@ import javax.swing.JTable;
 import view.VueConteneur;
 
 /**
- *
+ * cette classe reprensente le programme principale(JFrame) de notre application
  * @author mac
  */
 public class Gui extends JFrame {
@@ -52,7 +52,6 @@ public class Gui extends JFrame {
     public VueConteneur vueConteneur;
 
     public Gui() {
-        //this.setSize(1800, 800);
         this.setLayout(new BoxLayout(this.getContentPane(), 1));
 
         barre = new JMenuBar();
@@ -80,7 +79,10 @@ public class Gui extends JFrame {
     public static void main(String[] args) {
         new Gui();
     }
-
+    
+    /**
+     * cette fonction permet de générer les bouttons du JFrame.
+     */
     public void generateButtons() {
         this.creationRectagle = new JButton("Rectangle", new ImageIcon("icons/frame.png"));
         this.barre.add(creationRectagle);
@@ -94,7 +96,7 @@ public class Gui extends JFrame {
         this.barre.add(translation);
         this.translation.addActionListener(this::eventTranslation);
 
-        this.deplacement = new JButton("Deplacement", new ImageIcon("icons/arrows.png"));
+        this.deplacement = new JButton("Déplacement", new ImageIcon("icons/arrows.png"));
         this.barre.add(deplacement);
         this.deplacement.addActionListener(this::eventDeplacement);
 
@@ -102,19 +104,19 @@ public class Gui extends JFrame {
         this.barre.add(suppression);
         this.suppression.addActionListener(this::eventSuppression);
 
-        this.undo = new JButton("undo", new ImageIcon("icons/undo.png"));
+        this.undo = new JButton("Undo", new ImageIcon("icons/undo.png"));
         this.barre.add(undo);
         this.undo.addActionListener(this::eventUndo);
 
-        this.redo = new JButton("redo", new ImageIcon("icons/redo.png"));
+        this.redo = new JButton("Redo", new ImageIcon("icons/redo.png"));
         this.barre.add(redo);
         this.redo.addActionListener(this::eventRedo);
 
-        this.enregistrer = new JButton("Enregistrer", new ImageIcon("icons/enregistrer-le-fichier.png"));
+        this.enregistrer = new JButton("Enregistrer PNG", new ImageIcon("icons/png.png"));
         this.barre.add(enregistrer);
         this.enregistrer.addActionListener(this::eventEnregistrer);
 
-        this.resoudre = new JButton("Resoudre", new ImageIcon("icons/intelligence-artificielle.png"));
+        this.resoudre = new JButton("Solution", new ImageIcon("icons/intelligence-artificielle.png"));
         this.barre.add(resoudre);
         this.resoudre.addActionListener(this::eventResoudre);
 
@@ -123,32 +125,55 @@ public class Gui extends JFrame {
         this.barre.add(this.strategie);
 
     }
-
+     /**
+     * cette methode permet de changer le mode de dessin actuel en mode création rectangle.
+     * @param event l'evenement de la souris.
+     */
     public void eventCreationRectagle(ActionEvent event) {
         vueConteneur.ETAT = 0;
         vueConteneur.changeEtat(0);
     }
-
+    
+    /**
+     * cette methode permet de changer le mode de dessin actuel en mode création cercle.
+     * @param event l'evenement de la souris.
+     */
     public void eventCreationCercle(ActionEvent event) {
         vueConteneur.ETAT = 1;
         vueConteneur.changeEtat(1);
     }
-
+    
+    /**
+     * cette methode permet de changer le mode de dessin actuel en mode redimensionnement forme.
+     * @param event l'evenement de la souris.
+     */
     public void eventTranslation(ActionEvent event) {
         vueConteneur.ETAT = 4;
         vueConteneur.changeEtat(4);
     }
-
+    
+    /**
+     * cette methode permet de changer le mode de dessin actuel en mode deplacement forme.
+     * @param event l'evenement de la souris.
+     */
     public void eventDeplacement(ActionEvent event) {
         vueConteneur.ETAT = 2;
         vueConteneur.changeEtat(2);
     }
-
+    
+    /**
+     * cette methode permet de changer le mode de dessin actuel en mode suppression forme.
+     * @param event l'evenement de la souris.
+     */
     public void eventSuppression(ActionEvent event) {
         vueConteneur.ETAT = 3;
         vueConteneur.changeEtat(3);
     }
-
+    
+    /**
+     * cette methode permet d'annuler la dernière action réalisée.
+     * @param event l'evenement de la souris.
+     */
     public void eventUndo(ActionEvent event) {
         CommandHandler commandHandler = this.vueConteneur.getCommandHandler();
         commandHandler.undo();
@@ -156,7 +181,11 @@ public class Gui extends JFrame {
         this.undo.setEnabled(!commandHandler.getStackUndo().isEmpty());
         this.redo.setEnabled(!commandHandler.getStackRedo().isEmpty());
     }
-
+    
+     /**
+     * cette methode permet de rétablir la dernière action réalisée.
+     * @param event l'evenement de la souris.
+     */
     public void eventRedo(ActionEvent event) {
         CommandHandler commandHandler = this.vueConteneur.getCommandHandler();
         commandHandler.redo();
@@ -164,7 +193,10 @@ public class Gui extends JFrame {
         this.undo.setEnabled(!commandHandler.getStackUndo().isEmpty());
         this.redo.setEnabled(!commandHandler.getStackRedo().isEmpty());
     }
-
+    /**
+     * une fonction qui permet de resoudre selon la strategie difficile ou facile. 
+     * @param event l'evenement
+     */
     public void eventResoudre(ActionEvent event) {
         if (strategie.getSelectedItem() == "Solution difficile") {
             this.vueConteneur.resoudre(new HardStrategy());
@@ -173,14 +205,17 @@ public class Gui extends JFrame {
         }
 
     }
-
+    /**
+     * uen fonction qui permet d'enregister le dessin courrant en format png dans le repertoire courrant.
+     * @param event l'evenement
+     */
     public void eventEnregistrer(ActionEvent event) {
         BufferedImage bi = new BufferedImage(vueConteneur.getSize().width, vueConteneur.getSize().height, BufferedImage.TYPE_INT_ARGB);
         Graphics g = bi.createGraphics();
         vueConteneur.paint(g);  
         g.dispose();
         try {
-            ImageIO.write(bi, "png", new File("c111.png"));
+            ImageIO.write(bi, "png", new File("dessin.png"));
         } catch (Exception e) {
         }
     }

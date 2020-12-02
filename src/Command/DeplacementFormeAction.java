@@ -11,7 +11,8 @@ import view.Vue;
 import view.VueConteneur;
 
 /**
- *
+ * cette classe difinit l'action de deplacement d'une forme.
+ * elle implemente de l'interface Action(commande) de notre jeu
  * @author mac
  */
 public class DeplacementFormeAction implements Action {
@@ -20,7 +21,14 @@ public class DeplacementFormeAction implements Action {
     VueConteneur vueConteneur;
     Point initialPoint;
     Point finalPoint;
-
+    
+    /**
+     * 
+     * @param forme c'est l'instance de forme qu'on veut deplacer
+     * @param initialPoint  c'est le point de depart avant l'action de deplacement
+     * @param finalPoint C'est la position final de relachement du clic. 
+     * @param vueConteneur l'instance de Jpanel.
+     */
     public DeplacementFormeAction(Forme forme, Point initialPoint, Point finalPoint, VueConteneur vueConteneur) {
         this.forme = forme;
         this.initialPoint = initialPoint;

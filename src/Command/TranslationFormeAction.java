@@ -12,7 +12,8 @@ import model.Rectangle;
 import view.VueConteneur;
 
 /**
- *
+ * cette classe difinit l'action de redimensionnement d'une forme.
+ * elle implemente de l'interface Action(commande) de notre jeu
  * @author mac
  */
 public class TranslationFormeAction implements Action{
@@ -20,7 +21,13 @@ public class TranslationFormeAction implements Action{
     VueConteneur vueConteneur;
     Forme nouvelleForme;
     Forme formeInitial;
-
+    
+    /**
+     * 
+     * @param forme la forme initiale avant l'action de redimensionnement.
+     * @param vueConteneur l'instance de notre Jpanel.
+     * @param nouvelleForme une copie de la forme mise a jour.
+     */
     public TranslationFormeAction(Forme forme, VueConteneur vueConteneur, Forme nouvelleForme) {
         this.forme = forme;
         this.vueConteneur = vueConteneur;

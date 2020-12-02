@@ -10,6 +10,8 @@ import view.Vue;
 import view.VueConteneur;
 
 /**
+ * cette classe definit l'action d'ajout d'une forme. elle implemente de
+ * l'interface Action(commande) de notre jeu
  *
  * @author mac
  */
@@ -19,12 +21,22 @@ public class AjoutFormeAction implements Action {
     Vue vue;
     VueConteneur vueConteneur;
 
-    public AjoutFormeAction(Forme forme,Vue vue, VueConteneur vueConteneur) {
+    /**
+     *
+     * @param forme la forme qu'on veut ajouter.
+     * @param vue la vue qu'on veut ajouter.
+     * @param vueConteneur l'instance de Jpanel.
+     */
+    public AjoutFormeAction(Forme forme, Vue vue, VueConteneur vueConteneur) {
         this.forme = forme;
-        this.vue=vue;
+        this.vue = vue;
         this.vueConteneur = vueConteneur;
     }
 
+    /**
+     * ajouter la vue a notre zone de dessin et faire appel au conteneur de
+     * forme pour lui ajouter la forme.
+     */
     @Override
     public void operate() {
         this.vueConteneur.addVue(vue);
@@ -32,6 +44,10 @@ public class AjoutFormeAction implements Action {
         //this.vueConteneur.modeleMisAjour();
     }
 
+    /**
+     * retirer la vue a notre zone de dessin et faire appel au conteneur de
+     * forme pour lui retirer la forme.
+     */
     @Override
     public void compensate() {
         this.vueConteneur.removeVue(vue);

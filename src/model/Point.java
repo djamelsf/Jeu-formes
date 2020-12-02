@@ -6,13 +6,19 @@
 package model;
 
 /**
- *
+ * classe qui représente un point dans notre model
+ * elle contient deux doubles qui representent réspectivement l'abscisse et l'ordonnée du point.
  * @author mac
  */
 public class Point {
     private double x;
     private double y;
-
+    
+    /**
+     * constructeur de notre classe
+     * @param x abscisse du nouveau point
+     * @param y ordonnée du nouveau point
+     */
     public Point(double x, double y) {
         this.x = x;
         this.y = y;

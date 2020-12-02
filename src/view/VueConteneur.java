@@ -44,7 +44,8 @@ import util.ConteneurListener;
 import util.EcouteurFormes;
 
 /**
- *
+ * *Classe représenant notre zone de dessin, c'est à dire l'ensemble des données 
+ * permmettant de représenter un mode du jeu lors du fonctionnement de l'application.
  * @author mac
  */
 public class VueConteneur extends JPanel implements ConteneurListener, EcouteurFormes, MouseMotionListener, MouseListener {
@@ -53,18 +54,34 @@ public class VueConteneur extends JPanel implements ConteneurListener, EcouteurF
     private ConteneurFormes conteneurFormes;
     private Rectangle rectangle;
     private Cercle cercle;
+    /**
+     *  represente l'etat de notre model
+     */
     public static EtatForme etatForme;
+
+  
     public static int ETAT = 1; // Bouton de création rectangle
     private CommandHandler commandHandler;
+
+    /**
+     * represente la largueur de notre Jpanel.
+     */
     public static int largeur = 1000;
+
+    /**
+     * represente la hauteur de notre Jpanel
+     */
     public static int hauteur = 400;
+
+    /**
+     * le score de la partie en cours.
+     */
     public static double score;
 
     public VueConteneur() {
         this.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.BLACK));
         this.setPreferredSize(new Dimension(1000, 400));
         this.setMaximumSize(new Dimension(1000, 400));
-        //this.setSize(500, 500);
         this.vues = new ArrayList<>();
         this.conteneurFormes = new ConteneurFormes();
         addMouseMotionListener(this);
@@ -76,7 +93,10 @@ public class VueConteneur extends JPanel implements ConteneurListener, EcouteurF
         generateRandomFormes();
 
     }
-
+    /**
+     * cette methode permet de génerer une solution du jeu en fonction d'une difficulté choisie et créer un nouvelle partie.
+     * @param solutionStrategy la strategie voulu
+     */
     public void resoudre(SolutionStrategy solutionStrategy) {
         String solution = "";
         if (conteneurFormes.getFormes().size() < 8) {
@@ -84,7 +104,6 @@ public class VueConteneur extends JPanel implements ConteneurListener, EcouteurF
         } else {
             score = calculScore();
             removeUsersFormes();
-            //generateSolution(new EasyStrategy());
             generateSolution(solutionStrategy);
             double sIA = calculScore();
             String s = "";
@@ -94,7 +113,6 @@ public class VueConteneur extends JPanel implements ConteneurListener, EcouteurF
                 s = "Vous avez perdu, Votre score :" + score + " % le score de l'IA = " + sIA + " %";
             }
             s += ", voulez vous rejouer ?";
-            //int r=JOptionPane.showConfirmDialog(null,s,"Résulat",JOptionPane.YES_NO_OPTION);
             JOptionPane pane = new JOptionPane(s);
             JDialog dialog = pane.createDialog(null, "Résulat");
             dialog.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
@@ -109,21 +127,26 @@ public class VueConteneur extends JPanel implements ConteneurListener, EcouteurF
             generateRandomFormes();
         }
     }
-
+    
+    /**
+     * cette fonction permet de re-initialiser la tentative du joueur en supprimant les formes qu'il avait générées.
+     */
     public void removeUsersFormes() {
         for (int i = 7; i >= 4; i--) {
             for (Vue vue : vues) {
                 if (vue.getForme() == conteneurFormes.getFormes().get(i)) {
                     vues.remove(vue);
-                    System.out.println("1");
                     break;
                 }
             }
             conteneurFormes.getFormes().remove(i);
-            System.out.println(2);
         }
     }
-
+    
+    /**
+     * c'est une fonction qui permet de calculer le score du joueur.
+     * @return retourne le score sous la forme d'un double 
+     */
     public double calculScore() {
         double sc;
         double sum = 0;
@@ -133,7 +156,11 @@ public class VueConteneur extends JPanel implements ConteneurListener, EcouteurF
         sc = sum / (largeur * hauteur) * 100;
         return sc;
     }
-
+    
+    /**
+     * cette methode permet de dessier un graphe donné.
+     * @param g le graphe a dessiner
+     */
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -142,7 +169,9 @@ public class VueConteneur extends JPanel implements ConteneurListener, EcouteurF
             vue.paint(gr);
         }
     }
-
+    /**
+     * cette methode remplit notre model de Jtable pour pouvoir afficher les informations des formes générées en temps réel.
+     */
     public void tableMAJ() {
         int i = 0;
         DefaultTableModel modelTable = new DefaultTableModel();
@@ -162,8 +191,8 @@ public class VueConteneur extends JPanel implements ConteneurListener, EcouteurF
         Gui.tableau.setModel(modelTable);
     }
 
-    /**
-     * generateur des 4 formes
+      /**
+     * permet d'appler la fonction de génération des 4 formes aléatoires et de mettre a jour le modele.
      */
     public void generateRandomFormes() {
         this.conteneurFormes = generatePremisse();
@@ -180,9 +209,9 @@ public class VueConteneur extends JPanel implements ConteneurListener, EcouteurF
         modeleMisAjour();
     }
 
-    /**
-     *
-     * @param solutionStrategy la solution à utiliser (pattern Strategy)
+     /**
+     * c'est la procédure qui permet de générer une solution en fonction d'un niveau de difficulté.
+     * @param solutionStrategy represente la classe Stratégie de notre solution(niveau).
      */
     public void generateSolution(SolutionStrategy solutionStrategy) {
         ConteneurFormes sol = solutionStrategy.solution(conteneurFormes);
@@ -202,12 +231,16 @@ public class VueConteneur extends JPanel implements ConteneurListener, EcouteurF
 
     /**
      *
-     * @return pour savoir si l'utilisateur a dèja deposé 4 formes
+     * @return savoir si l'utilisateur a dèja deposé 4 formes
      */
     public boolean quatreFormesDeposee() {
         return this.conteneurFormes.getFormes().size() == 8;
     }
-
+   
+    /**
+     * c'est le bloque responsable de changer l'etat du Jpanel lors du fonctionnement de notre application.
+     * @param i entier qui désigne l'etat actuel.
+     */
     public void changeEtat(int i) {
         tableMAJ();
         switch (i) {
@@ -229,7 +262,11 @@ public class VueConteneur extends JPanel implements ConteneurListener, EcouteurF
             default:
         }
     }
-
+    
+    /**
+     * generatePremisse permet de générer les 4 formes aléatoires. Elle fait appel a chaque fois a la methode de généeration d'une forme aléatoire.
+     * @return un conteneur forme qui contient les 4 formes aléatoires crées.
+     */
     public static ConteneurFormes generatePremisse() {
         ConteneurFormes premisse = new ConteneurFormes();
         for (int i = 0; i < 4; i++) {
@@ -243,7 +280,14 @@ public class VueConteneur extends JPanel implements ConteneurListener, EcouteurF
         }
         return premisse;
     }
-
+    
+    /**
+     * qui permet de générer un rectangle aléatoire dans un intervalle donné
+     * @param premisse c'est le conteneur des formes
+     * @param min taille minimale de la largeur ou hauteur.
+     * @param max taille maximale de la largeur ou la hauteur.
+     * @return retourne un rectangle
+     */
     public static Forme generateRectangle(ConteneurFormes premisse, double min, double max) {
         Rectangle rectangle;
         do {
@@ -272,7 +316,11 @@ public class VueConteneur extends JPanel implements ConteneurListener, EcouteurF
     public ConteneurFormes getConteneurFormes() {
         return conteneurFormes;
     }
-
+    
+    /**
+     * une procedure qui permet d'ajouter un conteneur des formes et d'ecraser le dernier.  
+     * @param conteneurFormes le conteneur des formes qu'on veut ajouter. 
+     */
     public void setConteneurFormes(ConteneurFormes conteneurFormes) {
         this.conteneurFormes = conteneurFormes;
     }
@@ -298,7 +346,11 @@ public class VueConteneur extends JPanel implements ConteneurListener, EcouteurF
     public void formeRetiree(Forme forme) {
         this.conteneurFormes.remove(forme);
     }
-
+    
+    /**
+     * cette methode permet de mettre a jour notre model.
+     * c'est a dire d'appeler les methodes qui permettent de redessiner l'ensemble des composants et de mettre a jour la table qui regroupe les informations sur les formes.
+     */
     @Override
     public void modeleMisAjour() {
         repaint();

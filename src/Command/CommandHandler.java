@@ -8,7 +8,8 @@ package Command;
 import java.util.Stack;
 
 /**
- *
+ * c'est la classe qui permet de gerer et stocker les differnetes actions réalisées pour pouvoir les appeler plus-tard.
+ * Pour ce fait, on s'est inspiré du tp et créé deux piles pour pousser ou tirer l'action précéedente et ainsi de suite.
  * @author mac
  */
 public class CommandHandler {

@@ -21,7 +21,7 @@ import view.RectangleVue;
 import view.VueConteneur;
 
 /**
- *
+ * cette classe gère les differentes actions selon les interactions avec la souris.
  * @author mac
  */
 public class EtatCreerRectangle implements EtatForme {
@@ -33,7 +33,11 @@ public class EtatCreerRectangle implements EtatForme {
     ConteneurFormes conteneurFormes;
     Point depart;
     Point fin;
-
+    
+    /**
+     * @param vueConteneur l'instance de notre zone de dessin.
+     * @param conteneurFormes l'instance du conteneur des formes.
+     */
     public EtatCreerRectangle(VueConteneur vueConteneur, ConteneurFormes conteneurFormes) {
         this.vueConteneur = vueConteneur;
         this.conteneurFormes = conteneurFormes;
@@ -50,7 +54,11 @@ public class EtatCreerRectangle implements EtatForme {
             JOptionPane.showMessageDialog(vueConteneur, "4 formes dèja deposées !");
         }
     }
-
+    
+    /**
+     * le listener MouseDragged
+     * il permet de créer une forme temporaire avec la position actuel de souris pour suivre au fur et a mesure le progés.
+     */
     @Override
     public void mouseDragged(MouseEvent e) {
         model.Point p = new model.Point(depart.getX(), depart.getY());
@@ -79,8 +87,6 @@ public class EtatCreerRectangle implements EtatForme {
                 JOptionPane.showMessageDialog(vueConteneur, "Dessin impossible !");
             }
             this.vueConteneur.modeleMisAjour();
-
-            //conteneurFormes.add(rectangle);
         }
     }
 

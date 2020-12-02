@@ -14,7 +14,7 @@ import model.Rectangle;
 import view.VueConteneur;
 
 /**
- *
+ * c'est classe permet de gènerer une solution en 4 formes aleatoires.
  * @author mac
  */
 public class EasyStrategy implements SolutionStrategy {

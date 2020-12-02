@@ -20,14 +20,19 @@ import view.Vue;
 import view.VueConteneur;
 
 /**
- *
+ * cette classe gère les differentes actions en fonction des interactions de la souris.
  * @author mac
  */
 public class EtatSuppressionForme implements EtatForme {
 
     VueConteneur vueConteneur;
     ConteneurFormes conteneurFormes;
-
+    
+    /**
+     * 
+     * @param vueConteneur l'instance de notre zone de dessin.
+     * @param conteneurFormes l'instance du conteneur des formes.
+     */
     public EtatSuppressionForme(VueConteneur vueConteneur, ConteneurFormes conteneurFormes) {
         this.vueConteneur = vueConteneur;
         this.conteneurFormes = conteneurFormes;
@@ -50,7 +55,10 @@ public class EtatSuppressionForme implements EtatForme {
     public void mouseReleased(MouseEvent e) {
         //VIDE
     }
-
+    
+    /**
+     * le listener mouseClicked 
+     */
     @Override
     public void mouseClicked(MouseEvent e) {
         for (Forme forme : this.conteneurFormes.getFormes()) {

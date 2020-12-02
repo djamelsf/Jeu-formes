@@ -6,13 +6,21 @@
 package Command;
 
 /**
+ * Interface qui definit une action du pattern Command. Une action peut être
+ * (re)faite ou annulée.
  *
  * @author mac
  */
 public interface Action {
 
+    /**
+     * methode qui permet d'exécuter l'action
+     */
     void operate();
 
+    /**
+     * methode qui permet de l'annuler
+     */
     void compensate();
 
 }

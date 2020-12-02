@@ -8,20 +8,30 @@ package model;
 import view.VueConteneur;
 
 /**
- *
+ * Classe permettant de représenter un rectangle, elle a trois attributs: sa largeur, sa longueur et son point de départ.
  * @author mac
  */
 public class Rectangle extends Point implements Forme {
 
     private double largeur;
     private double hauteur;
-
+    
+    /**
+     * constructeur de notre classe qui permet d'instancier un rectancgle et qui prend en paramètre
+     * @param point son point de départ.
+     * @param largeur largeur de rectangle
+     * @param hauteur hauteur de rectangle
+     */
     public Rectangle(Point point, double largeur, double hauteur) {
         super(point.getX(), point.getY());
         this.hauteur = hauteur;
         this.largeur = largeur;
     }
-
+    
+    /**
+     * permet de calculer la surface d'un rectangle.
+     * @return retourne la surface
+     */
     @Override
     public double calculSurface() {
         return this.largeur * this.hauteur;
@@ -42,7 +52,12 @@ public class Rectangle extends Point implements Forme {
     public void setHauteur(double hauteur) {
         this.hauteur = hauteur;
     }
-
+    
+    /**
+     * teste la collision de cette forme avec les autres formes du conteneur.
+     * @param conteneurFormes le conteneur des formes de dessin
+     * @return vrai s'il ya collision sinon faux.
+     */
     @Override
     public boolean collision(ConteneurFormes conteneurFormes) {
         for (Forme forme : conteneurFormes.getFormes()) {
@@ -84,13 +99,21 @@ public class Rectangle extends Point implements Forme {
         }
         return false;
     }
-
+    
+    /**
+     * methode de deplacement d'un rectangle
+     * @param point le nouveau centre
+     */
     @Override
     public void deplacement(Point point) {
         this.setX(point.getX());
         this.setY(point.getY());
     }
-
+    
+    /**
+     * permet de redimensionner un rectangle
+     * @param forme la forme qu'on va déplacer.
+     */
     @Override
     public void translation(Forme forme) {
         if (forme instanceof Rectangle) {
@@ -99,7 +122,12 @@ public class Rectangle extends Point implements Forme {
             this.largeur = rectangle.getLargeur();
         }
     }
-
+    
+    /**
+     * fonction qui permet de tester la collision de ce rectangle avec un point.
+     * @param point le poit a tester pour la collision
+     * @return vrai s'ils se touchent sionon faux.
+     */
     @Override
     public boolean collisionPoint(java.awt.Point point) {
 
@@ -135,13 +163,25 @@ public class Rectangle extends Point implements Forme {
         String str = "Rectangle largeur=" + this.largeur + " hauteur=" + this.hauteur;
         return str;
     }
-
+    
+    /**
+     * permet de verifier si cette forme est valide c'est a dire ne depasse pas la zone de dessin et ne touche aucune autre forme.
+     * @return vrai si les formes se touche ou une une fois qu'on dpassé le plan de dessin.
+     */
     @Override
     public boolean formeValidee() {
         return (this.getHauteur() > 0 && this.getLargeur() > 0) && !lineRect(0, 0, 0, VueConteneur.hauteur) && !lineRect(0, 0, VueConteneur.largeur, 0) && !lineRect(VueConteneur.largeur, 0, VueConteneur.largeur, VueConteneur.hauteur)
                 && !lineRect(0, VueConteneur.hauteur, VueConteneur.largeur, VueConteneur.hauteur);
     }
-
+    
+    /**
+    * fonction qui verifie si le rectangle touche une ligne(bordure de Jpanel) 
+    * @param x1  l'abscisse de la premiere fin de ligne.
+    * @param y1 l'ordonné de la premiere fin de ligne.
+    * @param x2 l'abscisse de la deuxieme fin de ligne.
+    * @param y2 l'ordonné de la deuxieme fin de ligne.
+    * @return variable boolean est retournée contenant le resultat du test.
+    */
     boolean lineRect(double x1, double y1, double x2, double y2) {
 
         boolean left = lineLine(x1, y1, x2, y2, this.getX(), this.getY(), this.getX(), this.getY() + this.hauteur);
@@ -154,7 +194,19 @@ public class Rectangle extends Point implements Forme {
         }
         return false;
     }
-
+    
+     /**
+     * cette fonction permet de tester la collision de  deux lignes.
+     * @param x1 c'est l'abscisse du premier extremité de la première ligne
+     * @param y1 c'est l'ordonnée du premier extremité de la première ligne
+     * @param x2 c'est l'abscisse du deuxième extremité de la première ligne
+     * @param y2 c'est l'ordonnée du deuxième extremité de la première ligne
+     * @param x3 c'est l'abscisse du premier extremité de la deuxième ligne
+     * @param y3 c'est l'ordonnée du premier extremité de la deuxième ligne
+     * @param x4 c'est l'abscisse du premier extremité de la deuxième ligne
+     * @param y4 c'est l'ordonnée du deuxième extremité de la deuxième ligne
+     * @return vrai si collision détectée sinon faux.
+     */
     boolean lineLine(double x1, double y1, double x2, double y2, double x3, double y3, double x4, double y4) {
 
         double uA = ((x4 - x3) * (y1 - y3) - (y4 - y3) * (x1 - x3)) / ((y4 - y3) * (x2 - x1) - (x4 - x3) * (y2 - y1));

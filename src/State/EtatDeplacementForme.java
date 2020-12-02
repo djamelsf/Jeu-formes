@@ -24,6 +24,8 @@ import view.Vue;
 import view.VueConteneur;
 
 /**
+ * cette classe gère les differentes actions selon les interactions avec la
+ * souris.
  *
  * @author mac
  */
@@ -41,6 +43,10 @@ public class EtatDeplacementForme implements EtatForme {
     Forme currentForme;
     Vue currentVue;
 
+    /**
+     * @param vueConteneur l'instance de notre zone de dessin.
+     * @param conteneurFormes l'instance du conteneur des formes.
+     */
     public EtatDeplacementForme(VueConteneur vueConteneur, ConteneurFormes conteneurFormes) {
         this.vueConteneur = vueConteneur;
         this.conteneurFormes = conteneurFormes;
@@ -69,7 +75,7 @@ public class EtatDeplacementForme implements EtatForme {
             }
         }
     }
-    
+
     @Override
     public void mouseDragged(MouseEvent e) {
         if (f != null) {
@@ -104,7 +110,6 @@ public class EtatDeplacementForme implements EtatForme {
 
                 if (this.currentForme.collision(conteneurFormes) || (!this.currentForme.formeValidee())) {
                     JOptionPane.showMessageDialog(vueConteneur, "Collision detecté");
-                    System.out.println("2 :" + this.f.getPointDepart().getX() + ":->" + f.getPointDepart().getY());
 
                     this.f.deplacement(intialPoint);
                     this.conteneurFormes.add(f);
@@ -119,15 +124,12 @@ public class EtatDeplacementForme implements EtatForme {
                     Gui.undo.setEnabled(!vueConteneur.getCommandHandler().getStackUndo().isEmpty());
                     Gui.redo.setEnabled(!vueConteneur.getCommandHandler().getStackRedo().isEmpty());
 
-                    //this.f.deplacement(finalPoint);
                     this.conteneurFormes.add(f);
                     this.vueConteneur.addVue(vue);
 
                     deplacementEnCours = false;
                     this.vueConteneur.modeleMisAjour();
                 }
-                //
-                //this.conteneurFormes.add(f);
             }
         }
     }

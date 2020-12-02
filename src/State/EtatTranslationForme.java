@@ -24,7 +24,7 @@ import view.Vue;
 import view.VueConteneur;
 
 /**
- *
+ *  cette classe gère les differentes actions en fonction des interactions de la souris.
  * @author mac
  */
 public class EtatTranslationForme implements EtatForme {
@@ -38,7 +38,11 @@ public class EtatTranslationForme implements EtatForme {
     boolean translationEnCours = false;
     model.Point intialPoint;
     model.Point finalPoint;
-
+    
+     /**
+     * @param vueConteneur l'instance de notre zone de dessin.
+     * @param conteneurFormes l'instance du conteneur des formes.
+     */
     public EtatTranslationForme(VueConteneur vueConteneur, ConteneurFormes conteneurFormes) {
         this.vueConteneur = vueConteneur;
         this.conteneurFormes = conteneurFormes;

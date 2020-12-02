@@ -8,13 +8,16 @@ package model;
 import java.util.ArrayList;
 
 /**
- *
+ * classe premet de gérer le conteneur des formes de notre model.
  * @author mac
  */
 public class ConteneurFormes {
 
     private ArrayList<Forme> formes;
-
+    
+    /**
+     * constructeur du conteneur qui permet d'initialiser la liste des formes
+     */
     public ConteneurFormes() {
         this.formes = new ArrayList<>();
     }

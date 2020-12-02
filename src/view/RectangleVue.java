@@ -13,19 +13,28 @@ import model.Forme;
 import model.Rectangle;
 
 /**
- *
+ * Classe permettant de représenter la vue graphique associée à un rectangle.
  * @author mac
  */
 public class RectangleVue implements Vue{
 
     private Rectangle rectangle;
     private Color couleur;
-
+    
+    /**
+     *
+     * @param rectangle l'instance de la forme géométrique rectangle qu'on est entrant de gérer.
+     * @param couleur c'est la couleur choisie pour le rectangle par le model en fonction de celui qui l'a crée.
+     */
     public RectangleVue(Rectangle rectangle, Color couleur) {
         this.rectangle = rectangle;
         this.couleur=couleur;
     }
-
+    
+    /**
+     * cette fonction permet de dessiner le graphe en question.
+     * @param graphics2D le composent 2d a dessiner.
+     */
     @Override
     public void paint(Graphics2D graphics2D) {
         Shape shape = new Rectangle2D.Double(rectangle.getX(), rectangle.getY(), rectangle.getLargeur(), rectangle.getHauteur());
@@ -38,6 +47,11 @@ public class RectangleVue implements Vue{
         return this.rectangle;
     }
     
+    /**
+     * c'est une methode qui permet de de comparer deux rectangles.
+     * @param obj l'instance de la forme en question.
+     * @return true si l'objet est un rectangle et false dans le cas contraire.
+     */
     @Override
     public boolean equals(Object obj) {
         if(obj==null) return false;
@@ -51,7 +65,7 @@ public class RectangleVue implements Vue{
     public Rectangle getRectangle() {
         return rectangle;
     }
-
+    
     public void setRectangle(Rectangle rectangle) {
         this.rectangle = rectangle;
     }

@@ -20,6 +20,8 @@ import view.CercleVue;
 import view.VueConteneur;
 
 /**
+ * cette classe gère les differentes actions selon les interactions avec la
+ * souris.
  *
  * @author mac
  */
@@ -33,6 +35,11 @@ public class EtatCreerCercle implements EtatForme {
     Point depart;
     Point fin;
 
+    /**
+     *
+     * @param vueConteneur l'instance de notre zone de dessin.
+     * @param conteneurFormes l'instance du conteneur des formes.
+     */
     public EtatCreerCercle(VueConteneur vueConteneur, ConteneurFormes conteneurFormes) {
         this.vueConteneur = vueConteneur;
         this.conteneurFormes = conteneurFormes;
@@ -41,6 +48,9 @@ public class EtatCreerCercle implements EtatForme {
                 new Point(0, 0), "custom cursor"));
     }
 
+    /**
+     * le listener de MousePressed
+     */
     @Override
     public void mousePressed(MouseEvent e) {
         if (!this.vueConteneur.quatreFormesDeposee()) {
@@ -50,6 +60,10 @@ public class EtatCreerCercle implements EtatForme {
         }
     }
 
+    /**
+     * le listener MouseDragged il permet de créer une forme temporaire avec la
+     * position actuel de souris pour suivre au fur et a mesure le progés.
+     */
     @Override
     public void mouseDragged(MouseEvent e) {
         model.Point p = new model.Point(depart.getX(), depart.getY());
@@ -68,7 +82,6 @@ public class EtatCreerCercle implements EtatForme {
     public void mouseReleased(MouseEvent e) {
         if (dessinEnCours) {
             this.vueConteneur.removeVue(this.vueConteneur.getVues().size() - 1);
-            // add somthing here
             this.fin = e.getPoint();
             dessinEnCours = false;
             cercle.collision(this.conteneurFormes);
@@ -81,9 +94,6 @@ public class EtatCreerCercle implements EtatForme {
                 JOptionPane.showMessageDialog(vueConteneur, "Dessin impossible !");
             }
             this.vueConteneur.modeleMisAjour();
-
-            //conteneurFormes.add(cercle);
-            //MAJ OU PAS?
         }
     }
 

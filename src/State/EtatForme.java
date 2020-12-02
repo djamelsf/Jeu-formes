@@ -9,7 +9,7 @@ import model.Forme;
 import java.awt.event.MouseEvent;
 
 /**
- *
+ * Interface représentant les divers ecouteurs afin de connaitre les différentes actions a réaliser.
  * @author mac
  */
 public interface EtatForme {

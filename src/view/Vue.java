@@ -10,7 +10,7 @@ import java.awt.Graphics2D;
 import model.Forme;
 
 /**
- *
+ * interface représentant la vue associé a la forme géométrique du modèle
  * @author mac
  */
 public interface Vue {

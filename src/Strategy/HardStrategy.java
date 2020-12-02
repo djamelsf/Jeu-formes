@@ -16,7 +16,7 @@ import static view.VueConteneur.hauteur;
 import static view.VueConteneur.largeur;
 
 /**
- *
+ * cette classe permet de gènerer 4 formes aleatoires mais en se bassent sur le score du joueur, elle essaye d'avoir un score plus grand
  * @author mac
  */
 public class HardStrategy implements SolutionStrategy {

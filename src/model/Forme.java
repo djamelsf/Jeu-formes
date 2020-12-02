@@ -6,7 +6,7 @@
 package model;
 
 /**
- *
+ * interface forme qui representent les différents methodes des formes du jeu.
  * @author mac
  */
 public interface Forme {
