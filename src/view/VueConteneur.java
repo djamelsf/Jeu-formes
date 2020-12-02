@@ -83,8 +83,8 @@ public class VueConteneur extends JPanel implements ConteneurListener, EcouteurF
         } else {
             score = calculScore();
             removeUsersFormes();
-            generateSolution(new EasyStrategy());
-            //generateSolution(new HardStrategy());
+            //generateSolution(new EasyStrategy());
+            generateSolution(new HardStrategy());
             double sIA = calculScore();
             String s = "";
             if (score > sIA) {

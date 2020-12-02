@@ -24,11 +24,23 @@ public class HardStrategy implements SolutionStrategy {
     @Override
     public ConteneurFormes solution(ConteneurFormes premisse) {
         ConteneurFormes sol;
-        do{
-            sol=generateUneSolution(premisse);
-        }while(calculScore(sol)<VueConteneur.score);
+        double scoreMax = VueConteneur.score;
+        long lStartTime = System.nanoTime();
+        long lEndTime;
+        long output;
+        do {
+
+            sol = generateUneSolution(premisse);
+            lEndTime = System.nanoTime();
+            output = (lEndTime - lStartTime)/1000000000;
+            if(output>=1){
+                scoreMax-=5;
+                lStartTime=System.nanoTime();
+            }
+        } while (calculScore(sol) < scoreMax);
         return sol;
     }
+
     public double calculScore(ConteneurFormes conteneurFormes) {
         double sc;
         double sum = 0;
@@ -38,8 +50,8 @@ public class HardStrategy implements SolutionStrategy {
         sc = sum / (largeur * hauteur) * 100;
         return sc;
     }
-    
-    public ConteneurFormes generateUneSolution(ConteneurFormes premisse){
+
+    public ConteneurFormes generateUneSolution(ConteneurFormes premisse) {
         ConteneurFormes sol = new ConteneurFormes();
         ConteneurFormes tmp = new ConteneurFormes();
         tmp.getFormes().addAll(premisse.getFormes());
