@@ -6,6 +6,8 @@
 package Test;
 
 import Command.CommandHandler;
+import Strategy.EasyStrategy;
+import Strategy.HardStrategy;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
@@ -15,6 +17,7 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JScrollPane;
@@ -36,7 +39,8 @@ public class Gui extends JFrame {
     public static JButton undo;
     public static JButton redo;
     public static JButton resoudre;
-
+   
+    public static JComboBox strategie;
     public static JTable tableau;
     public JScrollPane scrollPane;
 
@@ -47,7 +51,7 @@ public class Gui extends JFrame {
         this.setLayout(new BoxLayout(this.getContentPane(), 1));
 
         barre = new JMenuBar();
-        barre.setLayout(new GridLayout(1, 8));
+        barre.setLayout(new GridLayout(1, 9));
         setJMenuBar(barre);
         generateButtons();
 
@@ -106,6 +110,10 @@ public class Gui extends JFrame {
         this.resoudre = new JButton("Resoudre");
         this.barre.add(resoudre);
         this.resoudre.addActionListener(this::eventResoudre);
+        
+        Object[] elements = new Object[]{"Solution aléatoire", "Solution difficile"};
+	this.strategie = new JComboBox(elements);
+        this.barre.add(this.strategie);
 
     }
 
@@ -151,7 +159,12 @@ public class Gui extends JFrame {
     }
 
     public void eventResoudre(ActionEvent event) {
-        this.vueConteneur.resoudre();
+        if(strategie.getSelectedItem()=="Solution difficile"){
+            this.vueConteneur.resoudre(new HardStrategy());
+        }else{
+            this.vueConteneur.resoudre(new EasyStrategy());
+        }
+        
     }
 
 }

@@ -76,7 +76,7 @@ public class VueConteneur extends JPanel implements ConteneurListener, EcouteurF
 
     }
     
-    public void resoudre() {
+    public void resoudre(SolutionStrategy solutionStrategy) {
         String solution = "";
         if (conteneurFormes.getFormes().size() < 8) {
             JOptionPane.showMessageDialog(this, "vous devez deposer 4 formes !");
@@ -84,7 +84,7 @@ public class VueConteneur extends JPanel implements ConteneurListener, EcouteurF
             score = calculScore();
             removeUsersFormes();
             //generateSolution(new EasyStrategy());
-            generateSolution(new HardStrategy());
+            generateSolution(solutionStrategy);
             double sIA = calculScore();
             String s = "";
             if (score > sIA) {

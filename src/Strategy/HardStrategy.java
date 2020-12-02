@@ -32,10 +32,10 @@ public class HardStrategy implements SolutionStrategy {
 
             sol = generateUneSolution(premisse);
             lEndTime = System.nanoTime();
-            output = (lEndTime - lStartTime)/1000000000;
-            if(output>=1){
-                scoreMax-=5;
-                lStartTime=System.nanoTime();
+            output = (lEndTime - lStartTime) / 1000000000;
+            if (output >= 1) {
+                scoreMax -= 5;
+                lStartTime = System.nanoTime();
             }
         } while (calculScore(sol) < scoreMax);
         return sol;

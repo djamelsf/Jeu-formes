@@ -18,7 +18,12 @@ import view.VueConteneur;
  * @author mac
  */
 public class EasyStrategy implements SolutionStrategy {
-
+    
+    /**
+     * La fonction solution de EasyStrategy qui génère 
+     * @param premisse
+     * @return 
+     */
     @Override
     public ConteneurFormes solution(ConteneurFormes premisse) {
         ConteneurFormes sol = new ConteneurFormes();
