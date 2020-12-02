@@ -69,7 +69,7 @@ public class EtatDeplacementForme implements EtatForme {
             }
         }
     }
-
+    
     @Override
     public void mouseDragged(MouseEvent e) {
         if (f != null) {

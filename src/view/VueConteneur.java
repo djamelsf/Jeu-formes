@@ -56,9 +56,9 @@ public class VueConteneur extends JPanel implements ConteneurListener, EcouteurF
     private CommandHandler commandHandler;
     public static int largeur = 1000;
     public static int hauteur = 400;
-
     public static double score;
 
+    
     public VueConteneur() {
         this.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.BLACK));
         this.setPreferredSize(new Dimension(1000, 400));
@@ -75,7 +75,7 @@ public class VueConteneur extends JPanel implements ConteneurListener, EcouteurF
         generateRandomFormes();
 
     }
-
+    
     public void resoudre() {
         String solution = "";
         if (conteneurFormes.getFormes().size() < 8) {
@@ -106,7 +106,6 @@ public class VueConteneur extends JPanel implements ConteneurListener, EcouteurF
             conteneurFormes.getFormes().removeAll(conteneurFormes.getFormes());
             vues.removeAll(vues);
             generateRandomFormes();
-
         }
     }
 
@@ -133,7 +132,7 @@ public class VueConteneur extends JPanel implements ConteneurListener, EcouteurF
         sc = sum / (largeur * hauteur) * 100;
         return sc;
     }
-
+    
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -161,7 +160,9 @@ public class VueConteneur extends JPanel implements ConteneurListener, EcouteurF
         }
         Gui.tableau.setModel(modelTable);
     }
-
+    /**
+     * generateur des 4 formes
+     */
     public void generateRandomFormes() {
         this.conteneurFormes = generatePremisse();
         for (Forme forme : this.conteneurFormes.getFormes()) {
@@ -176,7 +177,11 @@ public class VueConteneur extends JPanel implements ConteneurListener, EcouteurF
         }
         modeleMisAjour();
     }
-
+    
+    /**
+     * 
+     * @param solutionStrategy la solution à utiliser (pattern Strategy)
+     */
     public void generateSolution(SolutionStrategy solutionStrategy) {
         ConteneurFormes sol = solutionStrategy.solution(conteneurFormes);
         conteneurFormes.getFormes().addAll(sol.getFormes());
@@ -193,6 +198,10 @@ public class VueConteneur extends JPanel implements ConteneurListener, EcouteurF
         modeleMisAjour();
     }
 
+    /**
+     * 
+     * @return pour savoir si l'utilisateur a dèja deposé 4 formes
+     */
     public boolean quatreFormesDeposee() {
         return this.conteneurFormes.getFormes().size() == 8;
     }
