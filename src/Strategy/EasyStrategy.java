@@ -20,9 +20,9 @@ import view.VueConteneur;
 public class EasyStrategy implements SolutionStrategy {
     
     /**
-     * La fonction solution de EasyStrategy qui génère 
-     * @param premisse
-     * @return 
+     * La fonction solution de EasyStrategy qui génère 4 formes aleatoires sans faire collision avec la premisse
+     * @param premisse une liste qui contient les 4 formes initiales 
+     * @return elle retourne une solution en une liste de 4 formes 
      */
     @Override
     public ConteneurFormes solution(ConteneurFormes premisse) {
@@ -45,6 +45,13 @@ public class EasyStrategy implements SolutionStrategy {
         return sol;
     }
 
+    /**
+     * Une fonction génère un rectangle aleatoire 
+     * @param premisse la liste des formes precedentes 
+     * @param min largeur/hauteur minimale
+     * @param max largeur/hauteur maximale
+     * @return Une forme (Rectangle)
+     */
     public static Forme generateRectangle(ConteneurFormes premisse, double min, double max) {
         Rectangle rectangle;
         do {
@@ -57,7 +64,15 @@ public class EasyStrategy implements SolutionStrategy {
         } while (rectangle.collision(premisse) || !rectangle.formeValidee());
         return rectangle;
     }
-
+    
+    
+    /**
+     * Une fonction génère un Cercle aleatoire 
+     * @param premisse la liste des formes precedentes 
+     * @param min rayon minimal
+     * @param max rayon maximal
+     * @return Une forme (Cercle)
+     */
     public static Forme generateCercle(ConteneurFormes premisse, double min, double max) {
         Cercle cercle;
         do {
