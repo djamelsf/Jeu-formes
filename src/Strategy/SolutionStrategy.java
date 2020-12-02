@@ -5,13 +5,14 @@
  */
 package Strategy;
 
+import model.ConteneurFormes;
+
 /**
  *
  * @author mac
  */
 public interface SolutionStrategy {
     
-    void initialFormes();
-    void solution();
+    ConteneurFormes solution(ConteneurFormes premisse);
     
 }

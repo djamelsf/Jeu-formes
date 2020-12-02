@@ -12,7 +12,11 @@ import State.EtatDeplacementForme;
 import State.EtatForme;
 import State.EtatSuppressionForme;
 import State.EtatTranslationForme;
+import Strategy.EasyStrategy;
+import Strategy.HardStrategy;
+import Strategy.SolutionStrategy;
 import Test.Gui;
+import Test.NewClass;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -21,6 +25,8 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
+import java.util.Random;
+import java.util.Stack;
 import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -48,7 +54,7 @@ public class VueConteneur extends JPanel implements ConteneurListener, EcouteurF
     private CommandHandler commandHandler;
     public static int largeur = 1000;
     public static int hauteur = 400;
-    
+
     public static double score;
 
     public VueConteneur() {
@@ -65,20 +71,58 @@ public class VueConteneur extends JPanel implements ConteneurListener, EcouteurF
         Gui.redo.setEnabled(!commandHandler.getStackRedo().isEmpty());
         tableMAJ();
         generateRandomFormes();
+
     }
 
     public void resoudre() {
-        String solution="";
+        String solution = "";
         if (conteneurFormes.getFormes().size() < 8) {
             JOptionPane.showMessageDialog(this, "vous devez deposer 4 formes !");
         } else {
-            double sum=0;
-            for (int i = 4; i < conteneurFormes.getFormes().size(); i++) {
-                sum+=conteneurFormes.getFormes().get(i).calculSurface();
+            score = calculScore();
+            removeUsersFormes();
+            generateSolution(new EasyStrategy());
+            //generateSolution(new HardStrategy());
+            double sIA=calculScore();
+            String s="";
+             if(score>sIA){
+                s="Vous avez gagné ! Votre score :" + score + " % le score de l'IA = " + sIA + " %";
+            }else{
+                s="Vous avez perdu, Votre score :" + score + " % le score de l'IA = " + sIA + " %";
             }
-            score=sum/(largeur*hauteur)*100;
-            JOptionPane.showMessageDialog(this, "Votre score :"+score+" %");
+             s+=", voulez vous rejouer ?";
+            int r=JOptionPane.showConfirmDialog(null,s,"Résulat",JOptionPane.YES_OPTION);
+            commandHandler = new CommandHandler();
+            Gui.undo.setEnabled(!commandHandler.getStackUndo().isEmpty());
+            Gui.redo.setEnabled(!commandHandler.getStackRedo().isEmpty());
+            if(r==JOptionPane.YES_OPTION){
+                
+            }
         }
+    }
+
+    public void removeUsersFormes() {
+        for (int i = 7; i >= 4; i--) {
+            for (Vue vue : vues) {
+                if (vue.getForme() == conteneurFormes.getFormes().get(i)) {
+                    vues.remove(vue);
+                    System.out.println("1");
+                    break;
+                }
+            }
+            conteneurFormes.getFormes().remove(i);
+            System.out.println(2);
+        }
+    }
+
+    public double calculScore() {
+        double sc;
+        double sum = 0;
+        for (int i = 4; i < conteneurFormes.getFormes().size(); i++) {
+            sum += conteneurFormes.getFormes().get(i).calculSurface();
+        }
+        sc = sum / (largeur * hauteur) * 100;
+        return sc;
     }
 
     @Override
@@ -110,30 +154,31 @@ public class VueConteneur extends JPanel implements ConteneurListener, EcouteurF
     }
 
     public void generateRandomFormes() {
-        Rectangle rectangle;
-        Cercle cercle;
-
-        for (int j = 0; j < 4; j++) {
-            int f = (int) (Math.random() * 2);
-            if (f == 0) {
-                do {
-                    double x = Math.random() * 300;
-                    double y = Math.random() * 300;
-                    double rayon = 50 + (Math.random() * 256);
-                    cercle = new Cercle(new Point(x, y), rayon);
-                } while (cercle.collision(conteneurFormes) || !cercle.formeValidee());
-                conteneurFormes.add(cercle);
-                vues.add(new CercleVue(cercle, Color.red));
-            } else {
-                do {
-                    double x = Math.random() * 300;
-                    double y = Math.random() * 300;
-                    double largeur = 50 + (Math.random() * 256);
-                    double hauteur = 50 + (Math.random() * 256);
-                    rectangle = new Rectangle(new Point(x, y), largeur, hauteur);
-                } while (rectangle.collision(conteneurFormes) || !rectangle.formeValidee());
-                conteneurFormes.add(rectangle);
+        this.conteneurFormes = generatePremisse();
+        for (Forme forme : this.conteneurFormes.getFormes()) {
+            if (forme instanceof Rectangle) {
+                Rectangle rectangle = (Rectangle) forme;
                 vues.add(new RectangleVue(rectangle, Color.red));
+            }
+            if (forme instanceof Cercle) {
+                Cercle cercle = (Cercle) forme;
+                vues.add(new CercleVue(cercle, Color.red));
+            }
+        }
+        modeleMisAjour();
+    }
+
+    public void generateSolution(SolutionStrategy solutionStrategy) {
+        ConteneurFormes sol = solutionStrategy.solution(conteneurFormes);
+        conteneurFormes.getFormes().addAll(sol.getFormes());
+        for (Forme forme : sol.getFormes()) {
+            if (forme instanceof Rectangle) {
+                Rectangle rectangle = (Rectangle) forme;
+                vues.add(new RectangleVue(rectangle, Color.green));
+            }
+            if (forme instanceof Cercle) {
+                Cercle cercle = (Cercle) forme;
+                vues.add(new CercleVue(cercle, Color.green));
             }
         }
         modeleMisAjour();
@@ -163,6 +208,45 @@ public class VueConteneur extends JPanel implements ConteneurListener, EcouteurF
                 break;
             default:
         }
+    }
+
+    public static ConteneurFormes generatePremisse() {
+        ConteneurFormes premisse = new ConteneurFormes();
+        for (int i = 0; i < 4; i++) {
+            int bool = (int) (Math.random() * 2);
+            if (bool == 0) {
+                premisse.add(generateRectangle(premisse, 50, 300));
+            } else {
+                premisse.add(generateCercle(premisse, 50, 300));
+            }
+
+        }
+        return premisse;
+    }
+
+    public static Forme generateRectangle(ConteneurFormes premisse, double min, double max) {
+        Rectangle rectangle;
+        do {
+            Random r = new Random();
+            double largeur = min + (max - min) * r.nextDouble();
+            double hauteur = min + (max - min) * r.nextDouble();
+            double x = VueConteneur.largeur * r.nextDouble();
+            double y = VueConteneur.hauteur * r.nextDouble();
+            rectangle = new Rectangle(new Point(x, y), largeur, hauteur);
+        } while (rectangle.collision(premisse) || !rectangle.formeValidee());
+        return rectangle;
+    }
+
+    public static Forme generateCercle(ConteneurFormes premisse, double min, double max) {
+        Cercle cercle;
+        do {
+            Random r = new Random();
+            double rayon = min + (max - min) * r.nextDouble();
+            double x = VueConteneur.largeur * r.nextDouble();
+            double y = VueConteneur.hauteur * r.nextDouble();
+            cercle = new Cercle(new Point(x, y), rayon);
+        } while (cercle.collision(premisse) || !cercle.formeValidee());
+        return cercle;
     }
 
     public ConteneurFormes getConteneurFormes() {

@@ -5,20 +5,17 @@
  */
 package Strategy;
 
+import model.ConteneurFormes;
+
 /**
  *
  * @author mac
  */
-public class MediumStrategy implements SolutionStrategy{
+public class MediumStrategy implements SolutionStrategy {
 
     @Override
-    public void initialFormes() {
+    public ConteneurFormes solution(ConteneurFormes premisse) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
-    public void solution() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
 }

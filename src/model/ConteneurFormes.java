@@ -18,6 +18,10 @@ public class ConteneurFormes {
     public ConteneurFormes() {
         this.formes = new ArrayList<>();
     }
+    
+    public ConteneurFormes(ArrayList<Forme> formes){
+        this.formes=formes;
+    }
 
     public void add(Forme forme) {
         this.formes.add(forme);

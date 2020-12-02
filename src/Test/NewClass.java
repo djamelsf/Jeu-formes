@@ -33,17 +33,35 @@ public class NewClass {
         System.out.println(generatePremisse);
 
     }
-    
-    public static ConteneurFormes generatePremisse(){
-        ConteneurFormes premisse=new ConteneurFormes();
+
+    public static ConteneurFormes generateSolution(ConteneurFormes premisse) {
+        ConteneurFormes sol = new ConteneurFormes();
+        ConteneurFormes tmp=new ConteneurFormes(premisse.getFormes());
         for (int i = 0; i < 4; i++) {
-            int bool=(int)(Math.random() * 2);
-            if(bool==0){
-                premisse.add(generateRectangle(premisse, 100, 600));
-            }else{
-                premisse.add(generateCercle(premisse, 100, 600));
+            int bool = (int) (Math.random() * 2);
+            if (bool == 0) {
+                Forme r= generateRectangle(tmp, 50, 1000);
+                sol.add(r);
+                tmp.add(r);
+            } else {
+                Forme c=generateCercle(tmp, 50, 1000);
+                sol.add(c);
+                tmp.add(c);
             }
-            
+        }
+        return sol;
+    }
+
+    public static ConteneurFormes generatePremisse() {
+        ConteneurFormes premisse = new ConteneurFormes();
+        for (int i = 0; i < 4; i++) {
+            int bool = (int) (Math.random() * 2);
+            if (bool == 0) {
+                premisse.add(generateRectangle(premisse, 50, 300));
+            } else {
+                premisse.add(generateCercle(premisse, 50, 300));
+            }
+
         }
         return premisse;
     }
