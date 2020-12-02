@@ -28,8 +28,10 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Stack;
 import javax.swing.BorderFactory;
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.WindowConstants;
 import javax.swing.table.DefaultTableModel;
 import model.Cercle;
 import model.ConteneurFormes;
@@ -83,21 +85,28 @@ public class VueConteneur extends JPanel implements ConteneurListener, EcouteurF
             removeUsersFormes();
             generateSolution(new EasyStrategy());
             //generateSolution(new HardStrategy());
-            double sIA=calculScore();
-            String s="";
-             if(score>sIA){
-                s="Vous avez gagné ! Votre score :" + score + " % le score de l'IA = " + sIA + " %";
-            }else{
-                s="Vous avez perdu, Votre score :" + score + " % le score de l'IA = " + sIA + " %";
+            double sIA = calculScore();
+            String s = "";
+            if (score > sIA) {
+                s = "Vous avez gagné ! Votre score :" + score + " % le score de l'IA = " + sIA + " %";
+            } else {
+                s = "Vous avez perdu, Votre score :" + score + " % le score de l'IA = " + sIA + " %";
             }
-             s+=", voulez vous rejouer ?";
-            int r=JOptionPane.showConfirmDialog(null,s,"Résulat",JOptionPane.YES_OPTION);
+            s += ", voulez vous rejouer ?";
+            //int r=JOptionPane.showConfirmDialog(null,s,"Résulat",JOptionPane.YES_NO_OPTION);
+            JOptionPane pane = new JOptionPane(s);
+            JDialog dialog = pane.createDialog(null, "Résulat");
+            dialog.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+            dialog.setVisible(true);
+
             commandHandler = new CommandHandler();
             Gui.undo.setEnabled(!commandHandler.getStackUndo().isEmpty());
             Gui.redo.setEnabled(!commandHandler.getStackRedo().isEmpty());
-            if(r==JOptionPane.YES_OPTION){
-                
-            }
+
+            conteneurFormes.getFormes().removeAll(conteneurFormes.getFormes());
+            vues.removeAll(vues);
+            generateRandomFormes();
+
         }
     }
 

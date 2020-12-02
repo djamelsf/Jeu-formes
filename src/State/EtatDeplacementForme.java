@@ -44,7 +44,7 @@ public class EtatDeplacementForme implements EtatForme {
     public EtatDeplacementForme(VueConteneur vueConteneur, ConteneurFormes conteneurFormes) {
         this.vueConteneur = vueConteneur;
         this.conteneurFormes = conteneurFormes;
-        vueConteneur.setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
+        this.vueConteneur.setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
                 new ImageIcon("icons/arrows.png").getImage(),
                 new Point(0, 0), "custom cursor"));
     }

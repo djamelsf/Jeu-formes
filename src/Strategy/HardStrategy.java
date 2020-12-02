@@ -26,7 +26,7 @@ public class HardStrategy implements SolutionStrategy {
         ConteneurFormes sol;
         do{
             sol=generateUneSolution(premisse);
-        }while(calculScore(sol)<35);
+        }while(calculScore(sol)<VueConteneur.score);
         return sol;
     }
     public double calculScore(ConteneurFormes conteneurFormes) {
