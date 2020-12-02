@@ -10,9 +10,13 @@ import Strategy.EasyStrategy;
 import Strategy.HardStrategy;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import javax.imageio.ImageIO;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -39,7 +43,8 @@ public class Gui extends JFrame {
     public static JButton undo;
     public static JButton redo;
     public static JButton resoudre;
-   
+    public static JButton enregistrer;
+
     public static JComboBox strategie;
     public static JTable tableau;
     public JScrollPane scrollPane;
@@ -51,14 +56,12 @@ public class Gui extends JFrame {
         this.setLayout(new BoxLayout(this.getContentPane(), 1));
 
         barre = new JMenuBar();
-        barre.setLayout(new GridLayout(1, 9));
+        barre.setLayout(new GridLayout(1, 10));
         setJMenuBar(barre);
         generateButtons();
 
         this.tableau = new JTable(8, 2);
         scrollPane = new JScrollPane(tableau);
-        //        JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
-        //        JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         scrollPane.setPreferredSize(new Dimension(VueConteneur.largeur, 200));
         scrollPane.setMaximumSize(new Dimension(VueConteneur.largeur, 200));
         vueConteneur = new VueConteneur();
@@ -79,7 +82,7 @@ public class Gui extends JFrame {
     }
 
     public void generateButtons() {
-        this.creationRectagle = new JButton("Rectangle",new ImageIcon("icons/frame.png"));
+        this.creationRectagle = new JButton("Rectangle", new ImageIcon("icons/frame.png"));
         this.barre.add(creationRectagle);
         this.creationRectagle.addActionListener(this::eventCreationRectagle);
 
@@ -91,28 +94,32 @@ public class Gui extends JFrame {
         this.barre.add(translation);
         this.translation.addActionListener(this::eventTranslation);
 
-        this.deplacement = new JButton("Deplacement",new ImageIcon("icons/arrows.png"));
+        this.deplacement = new JButton("Deplacement", new ImageIcon("icons/arrows.png"));
         this.barre.add(deplacement);
         this.deplacement.addActionListener(this::eventDeplacement);
 
-        this.suppression = new JButton("Suppression",new ImageIcon("icons/trash-can.png"));
+        this.suppression = new JButton("Suppression", new ImageIcon("icons/trash-can.png"));
         this.barre.add(suppression);
         this.suppression.addActionListener(this::eventSuppression);
 
-        this.undo = new JButton("undo",new ImageIcon("icons/undo.png"));
+        this.undo = new JButton("undo", new ImageIcon("icons/undo.png"));
         this.barre.add(undo);
         this.undo.addActionListener(this::eventUndo);
 
-        this.redo = new JButton("redo",new ImageIcon("icons/redo.png"));
+        this.redo = new JButton("redo", new ImageIcon("icons/redo.png"));
         this.barre.add(redo);
         this.redo.addActionListener(this::eventRedo);
 
-        this.resoudre = new JButton("Resoudre");
+        this.enregistrer = new JButton("Enregistrer", new ImageIcon("icons/enregistrer-le-fichier.png"));
+        this.barre.add(enregistrer);
+        this.enregistrer.addActionListener(this::eventEnregistrer);
+
+        this.resoudre = new JButton("Resoudre", new ImageIcon("icons/intelligence-artificielle.png"));
         this.barre.add(resoudre);
         this.resoudre.addActionListener(this::eventResoudre);
-        
+
         Object[] elements = new Object[]{"Solution aléatoire", "Solution difficile"};
-	this.strategie = new JComboBox(elements);
+        this.strategie = new JComboBox(elements);
         this.barre.add(this.strategie);
 
     }
@@ -159,12 +166,23 @@ public class Gui extends JFrame {
     }
 
     public void eventResoudre(ActionEvent event) {
-        if(strategie.getSelectedItem()=="Solution difficile"){
+        if (strategie.getSelectedItem() == "Solution difficile") {
             this.vueConteneur.resoudre(new HardStrategy());
-        }else{
+        } else {
             this.vueConteneur.resoudre(new EasyStrategy());
         }
-        
+
+    }
+
+    public void eventEnregistrer(ActionEvent event) {
+        BufferedImage bi = new BufferedImage(vueConteneur.getSize().width, vueConteneur.getSize().height, BufferedImage.TYPE_INT_ARGB);
+        Graphics g = bi.createGraphics();
+        vueConteneur.paint(g);  
+        g.dispose();
+        try {
+            ImageIO.write(bi, "png", new File("c111.png"));
+        } catch (Exception e) {
+        }
     }
 
 }

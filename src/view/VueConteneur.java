@@ -16,7 +16,6 @@ import Strategy.EasyStrategy;
 import Strategy.HardStrategy;
 import Strategy.SolutionStrategy;
 import Test.Gui;
-import Test.NewClass;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -24,9 +23,12 @@ import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Stack;
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
@@ -58,7 +60,6 @@ public class VueConteneur extends JPanel implements ConteneurListener, EcouteurF
     public static int hauteur = 400;
     public static double score;
 
-    
     public VueConteneur() {
         this.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.BLACK));
         this.setPreferredSize(new Dimension(1000, 400));
@@ -75,7 +76,7 @@ public class VueConteneur extends JPanel implements ConteneurListener, EcouteurF
         generateRandomFormes();
 
     }
-    
+
     public void resoudre(SolutionStrategy solutionStrategy) {
         String solution = "";
         if (conteneurFormes.getFormes().size() < 8) {
@@ -132,7 +133,7 @@ public class VueConteneur extends JPanel implements ConteneurListener, EcouteurF
         sc = sum / (largeur * hauteur) * 100;
         return sc;
     }
-    
+
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -160,6 +161,7 @@ public class VueConteneur extends JPanel implements ConteneurListener, EcouteurF
         }
         Gui.tableau.setModel(modelTable);
     }
+
     /**
      * generateur des 4 formes
      */
@@ -177,9 +179,9 @@ public class VueConteneur extends JPanel implements ConteneurListener, EcouteurF
         }
         modeleMisAjour();
     }
-    
+
     /**
-     * 
+     *
      * @param solutionStrategy la solution à utiliser (pattern Strategy)
      */
     public void generateSolution(SolutionStrategy solutionStrategy) {
@@ -199,7 +201,7 @@ public class VueConteneur extends JPanel implements ConteneurListener, EcouteurF
     }
 
     /**
-     * 
+     *
      * @return pour savoir si l'utilisateur a dèja deposé 4 formes
      */
     public boolean quatreFormesDeposee() {

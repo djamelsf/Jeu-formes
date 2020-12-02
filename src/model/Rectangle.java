@@ -67,7 +67,6 @@ public class Rectangle extends Point implements Forme {
                 double distance = Math.sqrt((distX * distX) + (distY * distY));
 
                 if (distance <= c.getRayon()) {
-                    //System.out.println("COLLISION CERCLE !!!!!");
                     return true;
                 }
 
@@ -78,7 +77,6 @@ public class Rectangle extends Point implements Forme {
                         && this.getX() <= rectangle.getX() + rectangle.getLargeur()
                         && this.getY() + this.getHauteur() >= rectangle.getY()
                         && this.getY() <= rectangle.getY() + rectangle.getHauteur()) {
-                    //System.out.println("COLLISION !!!!!");
                     return true;
                 }
 
@@ -159,11 +157,9 @@ public class Rectangle extends Point implements Forme {
 
     boolean lineLine(double x1, double y1, double x2, double y2, double x3, double y3, double x4, double y4) {
 
-        // calculate the direction of the lines
         double uA = ((x4 - x3) * (y1 - y3) - (y4 - y3) * (x1 - x3)) / ((y4 - y3) * (x2 - x1) - (x4 - x3) * (y2 - y1));
         double uB = ((x2 - x1) * (y1 - y3) - (y2 - y1) * (x1 - x3)) / ((y4 - y3) * (x2 - x1) - (x4 - x3) * (y2 - y1));
 
-        // if uA and uB are between 0-1, lines are colliding
         if (uA >= 0 && uA <= 1 && uB >= 0 && uB <= 1) {
 
             return true;

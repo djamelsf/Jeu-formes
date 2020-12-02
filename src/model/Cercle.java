@@ -43,7 +43,6 @@ public class Cercle extends Point implements Forme {
                 double distY = this.getY() - cercle.getY();
                 double distance = Math.sqrt((distX * distX) + (distY * distY));
                 if (distance <= this.getRayon() + cercle.getRayon()) {
-                    //System.out.println("CERCLE CERCLE");
                     return true;
                 }
             }
@@ -68,7 +67,6 @@ public class Cercle extends Point implements Forme {
                 double distance = Math.sqrt((distX * distX) + (distY * distY));
 
                 if (distance <= this.getRayon()) {
-                    //System.out.println("COLLISION CERCLE RECT!!!!!");
                     return true;
                 }
             }
@@ -144,36 +142,24 @@ public class Cercle extends Point implements Forme {
     }
     
     boolean lineCircle(double x1, double y1, double x2, double y2) {
-
-        // is either end INSIDE the circle?
-        // if so, return true immediately
         boolean inside1 = pointCircle(x1, y1);
         boolean inside2 = pointCircle(x2, y2);
 
         if (inside1 || inside2) {
             return true;
         }
-
-        // get length of the line
         double distX = x1 - x2;
         double distY = y1 - y2;
         double len = sqrt((distX * distX) + (distY * distY));
-
-        // get dot product of the line and circle
         double dot = (((this.getX() - x1) * (x2 - x1)) + ((this.getY() - y1) * (y2 - y1))) / Math.pow(len, 2);
 
-        // find the closest point on the line
         double closestX = x1 + (dot * (x2 - x1));
         double closestY = y1 + (dot * (y2 - y1));
 
-        // is this point actually on the line segment?
-        // if so keep going, but if not, return false
         boolean onSegment = linePoint(x1, y1, x2, y2, closestX, closestY);
         if (!onSegment) {
             return false;
         }
-
-        // get distance to closest point
         distX = closestX - this.getX();
         distY = closestY - this.getY();
         double distance = Math.sqrt((distX * distX) + (distY * distY));
@@ -186,16 +172,12 @@ public class Cercle extends Point implements Forme {
 
     boolean linePoint(double x1, double y1, double x2, double y2, double px, double py) {
 
-        // get distance from the point to the two ends of the line
         double d1 = dist(px, py, x1, y1);
         double d2 = dist(px, py, x2, y2);
 
-        // get the length of the line
         double lineLen = dist(x1, y1, x2, y2);
 
-        // since floats are so minutely accurate, add
-        // a little buffer zone that will give collision
-        double buffer = 0.1;    // higher # = less accurate
+        double buffer = 0.1;   
 
    
         if (d1 + d2 >= lineLen - buffer && d1 + d2 <= lineLen + buffer) {

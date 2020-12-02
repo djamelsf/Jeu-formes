@@ -27,7 +27,6 @@ public class EasyStrategy implements SolutionStrategy {
     @Override
     public ConteneurFormes solution(ConteneurFormes premisse) {
         ConteneurFormes sol = new ConteneurFormes();
-        //ConteneurFormes tmp = new ConteneurFormes(premisse.getFormes());
         ConteneurFormes tmp = new ConteneurFormes();
         tmp.getFormes().addAll(premisse.getFormes());
         for (int i = 0; i < 4; i++) {
